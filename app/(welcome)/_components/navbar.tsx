@@ -10,12 +10,12 @@ export const Navbar = () => {
         <Logo />
         <div className="space-x-4 md:block md:w-auto flex items-center justify-between w-full">
           <Button variant="outline" size="sm" asChild>
-            <Link href="/sign-in">
+            <Link href="/signin">
               Login
             </Link>
           </Button>
           <Button variant="primary" size="sm" asChild>
-            <Link href="/sign-up">
+            <Link href="/signup">
               Try Travello for free
             </Link>
           </Button>

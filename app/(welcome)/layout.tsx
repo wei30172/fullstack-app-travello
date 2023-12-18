@@ -17,4 +17,4 @@ const WelcomeLayout = ({
   );
 };
 
-export default WelcomeLayout;
+export default WelcomeLayout

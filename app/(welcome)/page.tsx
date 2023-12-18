@@ -38,7 +38,7 @@ const WelcomePage = () => {
         size="lg"
         asChild
       >
-        <Link className="py-2 px-4" href="/sign-up">
+        <Link className="py-2 px-4" href="/signup">
           Start Your Journey
         </Link>
       </Button>

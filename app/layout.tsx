@@ -4,6 +4,9 @@ import { Montserrat } from "next/font/google"
 import './globals.css'
 
 import { siteConfig } from '@/config/site'
+import ThemeProvider from '@/providers/theme-provider'
+import AuthProvider from '@/providers/auth-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 export const textFont = Montserrat({
@@ -36,13 +39,25 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html suppressHydrationWarning lang="en">
+      <body className={inter.className}>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+            >
+            <Toaster />
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
+      </body>
     </html>
   )
 }
