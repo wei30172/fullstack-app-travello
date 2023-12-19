@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { textFont } from "@/app/layout"
 import { Button } from "@/components/ui/button"
 
-const WelcomePage = () => {
+const MarketingPage = () => {
   return (
     <div className="flex items-center justify-center flex-col bg-blue-50 text-gray-700">
       <div className="text-center mt-10 mb-6">
@@ -46,4 +46,4 @@ const WelcomePage = () => {
   )
 }
 
-export default WelcomePage
+export default MarketingPage

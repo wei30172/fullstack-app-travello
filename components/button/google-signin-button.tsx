@@ -2,7 +2,7 @@ import { signIn } from 'next-auth/react'
 
 import { Button } from '@/components/ui/button'
 
-const GoogleSignInButton = ({
+export const GoogleSignInButton = ({
   children,
   callbackUrl
 }: {
@@ -20,5 +20,3 @@ const GoogleSignInButton = ({
     </Button>
   )
 }
-
-export default GoogleSignInButton

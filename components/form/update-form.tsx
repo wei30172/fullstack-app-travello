@@ -20,13 +20,12 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import UserAvatar from "@/components/shared/user-avatar"
 
 interface UpdateFormProps {
   updateUserProfile: (values: UpdateUserProfileParams) => Promise<{success?: boolean}>
 }
 
-const UpdateForm = ({
+export const UpdateForm = ({
   updateUserProfile
 }: UpdateFormProps) => {
   const { data: session, update } = useSession()
@@ -54,7 +53,6 @@ const UpdateForm = ({
 
   return (
     <Form {...form}>
-      <UserAvatar />
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
         <div className="space-y-2">
           <FormField
@@ -84,7 +82,7 @@ const UpdateForm = ({
           <div className="border-b border-gray-400 w-full"></div>
         </div>
         <p className="text-center text-sm text-gray-600 mt-2">
-          <Link className="text-blue-600 hover:underline" href="/user/change-password">
+          <Link className="text-blue-600 hover:underline" href="/change-password">
             Change Password
           </Link>
         </p>
@@ -92,5 +90,3 @@ const UpdateForm = ({
     </Form>
   )
 }
-
-export default UpdateForm

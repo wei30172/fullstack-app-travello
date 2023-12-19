@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
-const Unauthorized = () => {
+const UnauthorizedPage = () => {
   const router = useRouter()
 
   return (
@@ -19,4 +19,4 @@ const Unauthorized = () => {
   )
 }
 
-export default Unauthorized
+export default UnauthorizedPage

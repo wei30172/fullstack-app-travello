@@ -18,13 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import GoogleSignInButton from "@/components/button/google-signin-button"
+import { GoogleSignInButton } from "@/components/button/google-signin-button"
 
 interface SignInFormProps {
   callbackUrl: string
 }
 
-const SignInForm = ({
+export const SignInForm = ({
   callbackUrl
 }: SignInFormProps) => {
   const { pending } = useFormStatus()
@@ -106,5 +106,3 @@ const SignInForm = ({
     </Form>
   )
 }
-
-export default SignInForm

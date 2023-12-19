@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { signOut } from "next-auth/react"
 
-const SignOutButton = () => {
+export const SignOutButton = () => {
   const signout = () => {
     signOut({
       redirect: true,
@@ -17,5 +17,3 @@ const SignOutButton = () => {
     </Button>
   )
 }
-
-export default SignOutButton

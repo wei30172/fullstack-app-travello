@@ -1,4 +1,4 @@
-import UpdateForm from "@/components/form/update-form"
+import { UpdateForm } from "@/components/form/update-form"
 import { updateUserProfile } from "@/lib/actions/auth.actions"
 
 const ProfilePage = async () => {

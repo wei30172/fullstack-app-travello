@@ -22,11 +22,10 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 
 interface SignUpFormProps {
-  callbackUrl: string,
   signUpWithCredentials: (values: SignUpWithCredentialsParams) => Promise<{success?: boolean}>
 }
 
-const SignUpForm = ({
+export const SignUpForm = ({
   signUpWithCredentials
 }: SignUpFormProps) => {
   const router = useRouter()
@@ -143,5 +142,3 @@ const SignUpForm = ({
     </Form>
   )
 }
-
-export default SignUpForm

@@ -1,4 +1,4 @@
-import SignInForm from '@/components/form/signin-form'
+import { SignInForm } from '@/components/form/signin-form'
 
 interface SignInPageProps {
   searchParams: {
@@ -11,7 +11,7 @@ const SignInPage = ({
   // console.log(callbackUrl)
   return (
     <div className="w-full">
-      <SignInForm callbackUrl={callbackUrl || "/"} />
+      <SignInForm callbackUrl={callbackUrl || "/boards"} />
     </div>
   )
 }

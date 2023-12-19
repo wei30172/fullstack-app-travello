@@ -26,7 +26,7 @@ interface ChangePasswordProps {
   changeUserPassword: (values: ChangeUserPasswordParams) => Promise<{success?: boolean}>
 }
 
-const ChangePasswordForm = ({
+export const ChangePasswordForm = ({
   changeUserPassword
 }: ChangePasswordProps) => {
   const router = useRouter()
@@ -141,5 +141,3 @@ const ChangePasswordForm = ({
     </Form>
   )
 }
-
-export default ChangePasswordForm

@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
-const Error = () => {
+const ErrorPage = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const errMsg = searchParams.get("error")
@@ -22,4 +22,4 @@ const Error = () => {
   )
 }
 
-export default Error
+export default ErrorPage
