@@ -1,28 +1,8 @@
-// export { default } from "next-auth/middleware"
+import { chain } from '@/middlewares/chain'
+import { withAuthMiddleware } from '@/middlewares/middleware1'
 
-// export const config = { matcher: ["/user/:path*, "/board/:path*"] }
+export default chain([withAuthMiddleware])
 
-import { withAuth } from "next-auth/middleware"
-// import { NextResponse } from "next/server"
-
-export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req) {
-    // console.log(req.nextauth.token)
-    // console.log(req.nextUrl)
-    // const { token } = req.nextauth
-    // const { pathname, origin } = req.nextUrl
-
-    // if (pathname.startsWith("/board") && token?.role !== "member") {
-    //   return NextResponse.redirect(`${origin}/unauthorized`)
-    // }
-  },
-  {
-    callbacks: {
-      // If `authorized` returns `true`, the middleware function will execute.
-      authorized: ({ token }) => !!token
-    },
-  }
-)
-
-export const config = { matcher: ["/user/:path*", "/board/:path*"] }
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+}
