@@ -14,16 +14,15 @@ type UpdateUserProfileReturn = ActionState<UpdateUserProfileInput, {name: string
 
 const updateUserProfileHandler = async (data: UpdateUserProfileInput): Promise<UpdateUserProfileReturn> => {
   const { session } = await getUserSession()
-  if (!session) {
-    return { error: "Unauthorized" }
-  }
+  if (!session) { return { error: "Unauthorized" } }
 
   const { name } = data
 
   let user
-  connectDB()
 
   try {
+    connectDB()
+    
     user = await User.findByIdAndUpdate(
       session?.user?._id,
       { name },

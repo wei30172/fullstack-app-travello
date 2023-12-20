@@ -14,9 +14,7 @@ type ChangeUserPasswordReturn = ActionState<ChangeUserPasswordInput, {name: stri
 
 const changeUserPasswordHandler = async (data: ChangeUserPasswordInput): Promise<ChangeUserPasswordReturn> => {
   const { session } = await getUserSession()
-  if (!session) {
-    return { error: "Unauthorized" }
-  }
+  if (!session) { return { error: "Unauthorized" } }
   
   if (session.user.provider !== "credentials") {
     return { error: `Signed in via ${session?.user?.provider}. Changes not allowed with this method.` }
@@ -25,9 +23,10 @@ const changeUserPasswordHandler = async (data: ChangeUserPasswordInput): Promise
   const { oldPassword, newPassword } = data
   
   let user
-  connectDB()
 
   try {
+    connectDB()
+    
     user = await User.findById(session?.user?._id)
     if (!user) return { error: "User not found" }
 

@@ -14,10 +14,11 @@ type SignUpWithCredentialsReturn = ActionState<SignUpWithCredentialsInput, {emai
 const signUpWithCredentialsHandler = async (data: SignUpWithCredentialsInput): Promise<SignUpWithCredentialsReturn> => {
   const { name, email, password } = data
   
-  connectDB()
-
   let user
+
   try {
+    connectDB()
+
     const existingUser = await User.findOne({ email })
     if (existingUser) return { error: "User already exists" }
 
