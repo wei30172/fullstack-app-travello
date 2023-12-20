@@ -5,7 +5,7 @@ import { useFormStatus } from 'react-dom'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { signIn } from "next-auth/react"
-import { userSignInValidation } from "@/lib/validations/auth"
+import { SignInValidation } from "@/lib/validations/auth"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -29,15 +29,15 @@ export const SignInForm = ({
 }: SignInFormProps) => {
   const { pending } = useFormStatus()
 
-  const form = useForm<z.infer<typeof userSignInValidation>>({
-    resolver: zodResolver(userSignInValidation),
+  const form = useForm<z.infer<typeof SignInValidation>>({
+    resolver: zodResolver(SignInValidation),
     defaultValues: {
       email: "",
       password: ""
     }
   })
 
-  async function onSubmit(values: z.infer<typeof userSignInValidation>) {
+  async function onSubmit(values: z.infer<typeof SignInValidation>) {
     // console.log(values)
     await signIn("credentials", {
       email: values.email,

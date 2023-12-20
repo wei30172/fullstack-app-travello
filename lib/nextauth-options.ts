@@ -1,7 +1,9 @@
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { signInWithOauth, getUserByEmail, signInWithCredentials } from "@/lib/actions/auth.actions"
+import { signInWithOauth } from "@/lib/actions/auth/signIn-with-oauth"
+import { getUserByEmail } from "@/lib/actions/auth/get-user-by-email"
+import { signInWithCredentials } from "@/lib/actions/auth/signin-with-credentials"
 
 export const nextauthOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,

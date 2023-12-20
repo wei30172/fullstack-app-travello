@@ -5,8 +5,9 @@ import { useFormStatus } from 'react-dom'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useSession } from "next-auth/react"
-import { userUpdateValidation } from "@/lib/validations/auth"
-import { UpdateUserProfileParams } from "@/lib/actions/auth.actions"
+import { useAction } from "@/hooks/use-validated-action"
+import { UpdateUserValidation } from "@/lib/validations/auth"
+import { updateUserProfile } from "@/lib/actions/auth/update-user-profile"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -21,34 +22,31 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 
-interface UpdateFormProps {
-  updateUserProfile: (values: UpdateUserProfileParams) => Promise<{success?: boolean}>
-}
-
-export const UpdateForm = ({
-  updateUserProfile
-}: UpdateFormProps) => {
+export const UpdateForm = () => {
   const { data: session, update } = useSession()
   const { pending } = useFormStatus()
   const { toast } = useToast()
 
-  const form = useForm<z.infer<typeof userUpdateValidation>>({
-    resolver: zodResolver(userUpdateValidation),
+  const { execute } = useAction(updateUserProfile, {
+    onSuccess: (data) => {
+      toast({
+        status: "success",
+        title: `Username "${data.name}" updated`
+      })
+    },
+    onError: (error) => {toast({ status: "error", description: error })}
+  })
+
+  const form = useForm<z.infer<typeof UpdateUserValidation>>({
+    resolver: zodResolver(UpdateUserValidation),
     defaultValues: {
       name: "",
     }
   })
 
-  async function onSubmit(values: z.infer<typeof userUpdateValidation>) {
+  async function onSubmit(values: z.infer<typeof UpdateUserValidation>) {
     update({name: values.name})
-    const res = await updateUserProfile(values)
-    
-    if (res?.success) {
-      toast({
-        status: "success",
-        description: "Update successfully."
-      })
-    }
+    execute({name: values.name})
   }
 
   return (

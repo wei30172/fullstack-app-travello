@@ -7,8 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useRouter } from "next/navigation"
 import { signOut } from "next-auth/react"
-import { changePasswordValidation } from "@/lib/validations/auth"
-import { ChangeUserPasswordParams } from "@/lib/actions/auth.actions"
+import { useAction } from "@/hooks/use-validated-action"
+import { ChangePasswordValidation } from "@/lib/validations/auth"
+import { changeUserPassword } from "@/lib/actions/auth/change-user-password"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -22,39 +23,18 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 
-interface ChangePasswordProps {
-  changeUserPassword: (values: ChangeUserPasswordParams) => Promise<{success?: boolean}>
-}
-
-export const ChangePasswordForm = ({
-  changeUserPassword
-}: ChangePasswordProps) => {
+export const ChangePasswordForm = () => {
   const router = useRouter()
   const { pending } = useFormStatus()
   const { toast } = useToast()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
-  const form = useForm<z.infer<typeof changePasswordValidation>>({
-    resolver: zodResolver(changePasswordValidation),
-    defaultValues: {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: ""
-    }
-  })
-
-  async function onSubmit(values: z.infer<typeof changePasswordValidation>) {
-    // console.log(values)
-    const res = await changeUserPassword({
-      oldPassword: values.oldPassword,
-      newPassword: values.newPassword
-    })
-    
-    if (res?.success) {
+  const { execute } = useAction(changeUserPassword, {
+    onSuccess: () => {
       toast({
         status: "success",
-        title: "Change password successfully.",
-        description: "You are being signed out..."
+        title: `Password Changed Successfully`,
+        description: "Please sign in again with the new password."
       })
       setIsLoggingOut(true)
       setTimeout(() => {
@@ -63,7 +43,22 @@ export const ChangePasswordForm = ({
           callbackUrl: `${window.location.origin}/signin`
         })
       }, 5000)
+    },
+    onError: (error) => {toast({ status: "error", description: error })}
+  })
+
+  const form = useForm<z.infer<typeof ChangePasswordValidation>>({
+    resolver: zodResolver(ChangePasswordValidation),
+    defaultValues: {
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: ""
     }
+  })
+
+  async function onSubmit(values: z.infer<typeof ChangePasswordValidation>) {
+    // console.log(values)
+    execute(values)
   }
 
   return (

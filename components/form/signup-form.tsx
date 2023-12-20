@@ -6,8 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { userSignUpValidation } from "@/lib/validations/auth"
-import { SignUpWithCredentialsParams } from "@/lib/actions/auth.actions"
+import { useAction } from "@/hooks/use-validated-action"
+import { SignUpValidation } from "@/lib/validations/auth"
+import { signUpWithCredentials } from "@/lib/actions/auth/signup-with-credentials"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -21,19 +22,24 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 
-interface SignUpFormProps {
-  signUpWithCredentials: (values: SignUpWithCredentialsParams) => Promise<{success?: boolean}>
-}
-
-export const SignUpForm = ({
-  signUpWithCredentials
-}: SignUpFormProps) => {
+export const SignUpForm = () => {
   const router = useRouter()
   const { pending } = useFormStatus()
   const { toast } = useToast()
 
-  const form = useForm<z.infer<typeof userSignUpValidation>>({
-    resolver: zodResolver(userSignUpValidation),
+  const { execute } = useAction(signUpWithCredentials, {
+    onSuccess: (data) => {
+      toast({
+        status: "success",
+        title: `${data.email} sign up successfully`
+      })
+      router.push("/signin")
+    },
+    onError: (error) => {toast({ status: "error", description: error })}
+  })
+
+  const form = useForm<z.infer<typeof SignUpValidation>>({
+    resolver: zodResolver(SignUpValidation),
     defaultValues: {
       name: "",
       email: "",
@@ -42,17 +48,9 @@ export const SignUpForm = ({
     }
   })
 
-  async function onSubmit(values: z.infer<typeof userSignUpValidation>) {
+  async function onSubmit(values: z.infer<typeof SignUpValidation>) {
     // console.log(values)
-    const res = await signUpWithCredentials(values)
-
-    if (res?.success) {
-      toast({
-        status: "success",
-        description: "Sign up successfully."
-      })
-      router.push("/signin")
-    }
+    execute(values)
   }
 
   return (
