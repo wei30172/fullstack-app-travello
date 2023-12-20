@@ -23,7 +23,7 @@ export const NavItems = ({ routes }: NavItemsProps) => {
     router.push(href)
   }
   return (
-    <div className="pt-1 text-neutral-700">
+    <div className="pt-1 text-gray-900 dark:text-gray-200">
       {routes.map((route) => (
         <Button
           key={route.href}

@@ -31,7 +31,7 @@ export const UserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger><UserAvatar /></DropdownMenuTrigger>
-      <DropdownMenuContent className="pt-1 text-neutral-700">
+      <DropdownMenuContent className="pt-1">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <NavItems routes={routes} />
