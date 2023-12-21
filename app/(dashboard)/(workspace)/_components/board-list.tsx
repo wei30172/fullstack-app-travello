@@ -5,7 +5,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { FormPopover } from "@/components/form/form-popover"
 import { LandPlot } from "lucide-react"
 
-
 export const BoardList = async () => {
   const { data: boards } = await getBoards()
   // console.log({boards})

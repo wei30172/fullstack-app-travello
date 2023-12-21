@@ -46,7 +46,7 @@ export const FormPopover = ({
     onError: (error) => {
       toast({
         status: "error",
-        title: error,
+        title: error
       })
     }
   })

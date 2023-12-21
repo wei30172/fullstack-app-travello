@@ -1,5 +1,4 @@
 "use server"
-import { NextResponse } from "next/server"
 
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import connectDB from "@/lib/mongodb"
