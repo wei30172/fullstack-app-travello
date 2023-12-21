@@ -1,8 +1,8 @@
-import React from 'react'
-
 const BoardIdPage = () => {
   return (
-    <div>BoardIdPage</div>
+    <div>
+      BoardIdPage
+    </div>
   )
 }
 

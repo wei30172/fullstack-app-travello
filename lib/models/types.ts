@@ -13,6 +13,7 @@ export interface IUser extends Document {
 
 export interface IBoard extends Document {
   title: string
+  userId: string
   imageId?: string
   imageThumbUrl?: string
   imageFullUrl?: string
