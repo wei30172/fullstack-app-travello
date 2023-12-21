@@ -33,7 +33,7 @@ export const ChangePasswordForm = () => {
     onSuccess: () => {
       toast({
         status: "success",
-        title: `Password Changed Successfully`,
+        title: "Password Changed Successfully",
         description: "Please sign in again with the new password."
       })
       setIsLoggingOut(true)

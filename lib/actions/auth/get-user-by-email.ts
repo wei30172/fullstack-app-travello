@@ -15,5 +15,5 @@ export const getUserByEmail = async (data: GetUserByEmailInput): Promise<GetUser
   const user = await User.findOne({email}).select("-password")
 
   // console.log({user})
-  return {...user._doc, _id: user._id.toString()}
+  return { ...user._doc, _id: user._id.toString() }
 }
