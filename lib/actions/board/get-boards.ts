@@ -2,9 +2,11 @@
 
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import connectDB from "@/lib/mongodb"
-import Board from "@/lib/models/board.model"
 
-export const getBoards = async () => {
+import Board from "@/lib/models/board.model"
+import { IBoard } from "@/lib/models/types"
+
+export const getBoards = async (): Promise<IBoard[]> => {
   const { session } = await getUserSession()
 
   connectDB()
@@ -18,5 +20,5 @@ export const getBoards = async () => {
     }
   })
 
-  return { data: boards }
+  return boards
 }

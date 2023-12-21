@@ -24,13 +24,11 @@ const deleteBoardhandler = async (data: DeleteBoardInput): Promise<DeleteBoardRe
 
   const { id } = data
 
-  let board
-
   try {
     connectDB()
 
-    board = await Board.findByIdAndDelete(id)
-    
+    await Board.findByIdAndDelete(id)
+
   } catch (error) {
     return { error: "Failed to delete" }
   }

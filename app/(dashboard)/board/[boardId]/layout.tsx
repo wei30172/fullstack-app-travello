@@ -8,7 +8,7 @@ export async function generateMetadata({
  }: {
   params: { boardId: string }
  }) {
-  const { data: board } = await getBoard(params.boardId)
+  const board = await getBoard(params.boardId)
 
   return {
     title: board?.title || "Trip",
@@ -22,7 +22,7 @@ const BoardIdLayout = async ({
   children: React.ReactNode
   params: { boardId: string }
 }) => {
-  const { data: board } = await getBoard(params.boardId)
+  const board = await getBoard(params.boardId)
   // console.log({board})
 
   if (!board) {

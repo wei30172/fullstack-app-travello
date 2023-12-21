@@ -34,12 +34,10 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
   //   return { error: "Missing fields. Failed to create board" }
   // }
 
-  let board
-
   try {
     connectDB()
 
-    board = new Board({
+    const board = new Board({
       title,
       userId: session?.user?._id
       // imageId,
@@ -51,12 +49,13 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
     
     // console.log({board})
     await board.save()
+
+    revalidatePath(`/board/${board._id.toString()}`)
+    return { data: { ...board._doc, _id: board._id.toString() } }
+    
   } catch (error) {
     return { error: "Failed to create" }
   }
-
-  revalidatePath(`/board/${board._id.toString()}`)
-  return { data: { ...board._doc, _id: board._id.toString() } }
 }
 
 export const createBoard = createValidatedAction(CreateBoardValidation, createBoardhandler)
