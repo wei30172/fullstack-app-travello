@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
-
 import { getBoard } from "@/lib/actions/board/get-board"
+
+import { BoardNavbar } from "./_components/board-navbar"
 
 export async function generateMetadata({ 
   params
@@ -10,7 +11,7 @@ export async function generateMetadata({
   const { data: board } = await getBoard(params.boardId)
 
   return {
-    title: board?.title || "Board",
+    title: board?.title || "Trip",
   }
 }
 
@@ -31,8 +32,9 @@ const BoardIdLayout = async ({
   return (
     <div
       className="relative h-full bg-no-repeat bg-cover bg-center"
-      style={{ backgroundImage: `url(${board.imageFullUrl})` }}
+      // style={{ backgroundImage: `url(${board.imageFullUrl})` }}
     >
+      <BoardNavbar boardData={board} />
       <div className="absolute inset-0 bg-black/10" />
       <main className="relative pt-28 h-full">
         {children}
