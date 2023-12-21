@@ -1,4 +1,4 @@
-import { Navbar } from "./_components/navbar/navbar"
+import { Navbar } from "./_components/navbar"
 
 const DashboardLayout = ({ 
   children

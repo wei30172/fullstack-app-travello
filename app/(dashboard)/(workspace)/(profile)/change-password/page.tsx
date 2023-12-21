@@ -1,4 +1,4 @@
-import { ChangePasswordForm } from "@/components/form/change-password-form"
+import { ChangePasswordForm } from "../_components/change-password-form"
 
 const ChangePasswordPage = async () => {
   return (

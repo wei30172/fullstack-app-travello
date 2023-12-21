@@ -2,7 +2,7 @@ import Link from "next/link"
 import { getBoards } from "@/lib/actions/board/get-boards"
 
 import { Skeleton } from "@/components/ui/skeleton"
-import { FormPopover } from "../../_components/form/form-popover"
+import { FormPopover } from "@/components/form/form-popover"
 import { LandPlot } from "lucide-react"
 
 

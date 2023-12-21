@@ -1,4 +1,4 @@
-import { SignInForm } from '@/components/form/signin-form'
+import { SignInForm } from "../_components/signin-form"
 
 interface SignInPageProps {
   searchParams: {

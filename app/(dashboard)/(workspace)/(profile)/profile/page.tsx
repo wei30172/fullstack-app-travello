@@ -1,4 +1,4 @@
-import { UpdateForm } from "@/components/form/update-form"
+import { UpdateForm } from "../_components/update-form"
 
 const ProfilePage = async () => {
   return (

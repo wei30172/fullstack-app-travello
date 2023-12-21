@@ -1,4 +1,4 @@
-import { Sidebar } from "../_components/navbar/sidebar"
+import { Sidebar } from "../_components/sidebar"
 
 const WorkspaceLayout = ({
   children
