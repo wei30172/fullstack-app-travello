@@ -5,11 +5,7 @@ import { revalidatePath } from "next/cache"
 
 import connectDB from "@/lib/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
-import {
-  ActionState,
-  createValidatedAction
-} from "@/lib/create-validated-action"
-
+import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
 import Board from "@/lib/models/board.model"
 import { IBoard } from "@/lib/models/types"
 import { UpdateBoardValidation } from "@/lib/validations/board"
@@ -33,7 +29,8 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
       { title }, // 更新內容  
       { new: true } // 返回更新後的文檔
     )
-    
+    // console.log({id, board})
+
   } catch (error) {
     return { error: "Failed to update" }
   }

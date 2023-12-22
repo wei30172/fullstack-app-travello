@@ -11,7 +11,8 @@ export const getBoards = async (): Promise<IBoard[]> => {
 
   connectDB()
 
-  let boards = await Board.find({ userId: session?.user?._id }).sort({ createdAt: -1 })
+  let boards = await Board.find({ userId: session?.user?._id })
+    .sort({ createdAt: -1 })
 
   boards = boards.map(board => {
     return {
@@ -20,5 +21,6 @@ export const getBoards = async (): Promise<IBoard[]> => {
     }
   })
 
+  // console.log({boards})
   return boards
 }

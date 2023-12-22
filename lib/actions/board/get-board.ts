@@ -13,6 +13,7 @@ export const getBoard = async (boardId: string): Promise<IBoard | null> => {
   
   connectDB()
 
+  // console.log({boardId})
   if (!boardId || !mongoose.Types.ObjectId.isValid(boardId)) {
     console.error('Invalid boardId:', boardId)
     return null
@@ -20,6 +21,14 @@ export const getBoard = async (boardId: string): Promise<IBoard | null> => {
 
   const board = await Board.findOne({ _id: boardId, userId: session?.user?._id })
 
+  if (!board) {
+    console.log("Board not found")
+    return null
+  }
+
   // console.log({board})
-  return { ...board._doc, _id: board._id.toString() }
+  return {
+    ...board._doc,
+    _id: board._id.toString()
+  }
 }
