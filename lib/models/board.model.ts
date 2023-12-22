@@ -26,7 +26,7 @@ const boardSchema = new mongoose.Schema({
     type: String
   },
   lists: [{
-    type: String, // or mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
     ref: "List"
   }]
 }, { timestamps: true })

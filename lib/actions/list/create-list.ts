@@ -43,7 +43,7 @@ const createListHandler = async (data: CreateListInput): Promise<CreateListRetur
 
     await Board.findByIdAndUpdate(
       boardId, // 查詢條件
-      { $push: { lists: list._id.toString() } // 更新內容
+      { $push: { lists: list._id } // 更新內容
     })
 
   } catch (error) {
