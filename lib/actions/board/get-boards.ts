@@ -15,10 +15,10 @@ export const getBoards = async (): Promise<IBoard[]> => {
     .sort({ createdAt: -1 })
 
   boards = boards.map(board => {
-    return {
-      ...board._doc,
-      _id: board._id.toString()
-    }
+    const boardObject = board.toObject()
+    boardObject._id = boardObject._id.toString()
+
+    return boardObject
   })
 
   // console.log({boards})
