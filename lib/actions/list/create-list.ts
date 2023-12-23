@@ -8,11 +8,10 @@ import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
 import Board from "@/lib/models/board.model"
 import List from "@/lib/models/list.model"
-import { IList } from "@/lib/models/types"
 import { CreateListValidation } from "@/lib/validations/list"
 
 type CreateListInput = z.infer<typeof CreateListValidation>
-type CreateListReturn = ActionState<CreateListInput, IList>
+type CreateListReturn = ActionState<CreateListInput, { title: string }>
 
 const createListHandler = async (data: CreateListInput): Promise<CreateListReturn> => {
   const { session } = await getUserSession()
@@ -38,30 +37,22 @@ const createListHandler = async (data: CreateListInput): Promise<CreateListRetur
     
     const newOrder = lastList ? lastList.order + 1 : 0
 
-    list = new List({
-      title,
-      boardId: boardId,
-      order: newOrder
-    })
+    list = new List({ title, boardId: boardId, order: newOrder })
     // console.log({list})
 
     await list.save()
 
     await Board.findByIdAndUpdate(
       boardId, // 查詢條件
-      { $push: { lists: list._id.toString() } // 更新內容
+      { $push: { lists: list._id } // 更新內容
     })
 
   } catch (error) {
     return { error: "Failed to create" }
   }
   
-  const listObject = list.toObject()
-  listObject._id = listObject._id.toString()
-  listObject.boardId = listObject.boardId.toString()
-
   revalidatePath(`/board/${boardId}`)
-  return { data: listObject }
+  return { data: { title: list.title } }
 }
 
 export const createList = createValidatedAction(CreateListValidation, createListHandler)

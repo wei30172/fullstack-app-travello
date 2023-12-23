@@ -11,11 +11,10 @@ import {
 } from "@/lib/create-validated-action"
 
 import Board from "@/lib/models/board.model"
-import { IBoard } from "@/lib/models/types"
 import { CreateBoardValidation } from "@/lib/validations/board"
 
 type CreateBoardInput = z.infer<typeof CreateBoardValidation>
-type CreateBoardReturn = ActionState<CreateBoardInput, IBoard>
+type CreateBoardReturn = ActionState<CreateBoardInput, { _id: string }>
 
 const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardReturn> => {
   const { session } = await getUserSession()
@@ -57,7 +56,7 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
   }
 
   revalidatePath(`/board/${board._id.toString()}`)
-  return { data: { ...board._doc, _id: board._id.toString() } }
+  return { data: { _id: board._id.toString() } }
 }
 
 export const createBoard = createValidatedAction(CreateBoardValidation, createBoardhandler)

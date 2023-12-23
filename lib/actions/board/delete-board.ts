@@ -12,11 +12,10 @@ import {
 } from "@/lib/create-validated-action"
 
 import Board from "@/lib/models/board.model"
-import { IBoard } from "@/lib/models/types"
 import { DeleteBoardValidation } from "@/lib/validations/board"
 
 type DeleteBoardInput = z.infer<typeof DeleteBoardValidation>
-type DeleteBoardReturn = ActionState<DeleteBoardInput, IBoard>
+type DeleteBoardReturn = ActionState<DeleteBoardInput, null>
 
 const deleteBoardhandler = async (data: DeleteBoardInput): Promise<DeleteBoardReturn> => {
   const { session } = await getUserSession()

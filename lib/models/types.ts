@@ -1,4 +1,4 @@
-import { Document, Types } from "mongoose"
+import { Document } from "mongoose"
 
 export interface IUser extends Document {
   name: string

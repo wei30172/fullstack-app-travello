@@ -7,11 +7,10 @@ import connectDB from "@/lib/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
 import Board from "@/lib/models/board.model"
-import { IBoard } from "@/lib/models/types"
 import { UpdateBoardValidation } from "@/lib/validations/board"
 
 type UpdateBoardInput = z.infer<typeof UpdateBoardValidation>
-type UpdateBoardReturn = ActionState<UpdateBoardInput, IBoard>
+type UpdateBoardReturn = ActionState<UpdateBoardInput, { title: string }>
 
 const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardReturn> => {
   const { session } = await getUserSession()
@@ -36,7 +35,7 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
   }
 
   revalidatePath(`/board/${id}`)
-  return { data: { ...board._doc, _id: board._id.toString() } }
+  return { data: { title: board.title } }
 }
 
 export const updateBoard = createValidatedAction(UpdateBoardValidation, updateBoardhandler)
