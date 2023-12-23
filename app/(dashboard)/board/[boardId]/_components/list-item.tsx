@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils"
 import { ICard } from "@/lib/models/types"
 import { ListWithCards } from "@/types"
 
+import { CardForm } from "./card-form"
+import { CardItem } from "./card-item"
 import { ListHeader } from "./list-header"
 
 interface ListItemProps {
@@ -44,7 +46,23 @@ export const ListItem = ({
               listData.cards.length > 0 ? "mt-2" : "mt-0",
             )}
           >
+            {
+              (listData.cards as ICard[]).map((card, index) => (
+                <CardItem
+                  index={index}
+                  key={card._id}
+                  cardData={card}
+                />
+              ))
+            }
           </ol>
+          <CardForm
+            listId={listData._id}
+            ref={textareaRef}
+            isEditing={isEditing}
+            enableEditing={enableEditing}
+            disableEditing={disableEditing}
+          />
       </div>
     </li>
   )
