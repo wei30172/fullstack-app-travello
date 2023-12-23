@@ -26,9 +26,13 @@ export const getBoard = async (boardId: string): Promise<IBoard | null> => {
     return null
   }
 
-  // console.log({board})
-  return {
-    ...board._doc,
-    _id: board._id.toString()
+  const boardObject = board.toObject()
+  boardObject._id = boardObject._id.toString()
+
+  if (boardObject.lists) {
+    boardObject.lists = boardObject.lists.map((id: mongoose.Types.ObjectId) => id.toString())
   }
+  
+  // console.log({boardObject})
+  return boardObject
 }
