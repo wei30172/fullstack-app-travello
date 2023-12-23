@@ -13,13 +13,13 @@ export interface IUser extends Document {
 
 export interface IBoard extends Document {
   title: string
-  userId: Types.ObjectId | string
+  userId: string
   imageId?: string
   imageThumbUrl?: string
   imageFullUrl?: string
   imageUserName?: string
   imageLinkHTML?: string
-  lists: Types.ObjectId[] | string[]
+  lists: string[]
   createdAt: Date
   updatedAt: Date
 }
@@ -27,8 +27,8 @@ export interface IBoard extends Document {
 export interface IList extends Document {
   title: string
   order: number
-  boardId: Types.ObjectId | string
-  cards: Types.ObjectId[] | string[]
+  boardId: string
+  cards: string[]
   createdAt: Date
   updatedAt: Date
 }
@@ -37,7 +37,7 @@ export interface ICard extends Document {
   title: string
   order: number
   description?: string
-  listId: Types.ObjectId | string
+  listId: string
   createdAt: Date
   updatedAt: Date
 }
