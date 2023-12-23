@@ -113,6 +113,10 @@ export const ListHeader = ({
           {title}
         </div>
       )}
+      <ListOptions
+        onAddCard={onAddCard}
+        listData={listData}
+      />
     </div>
   )
 }

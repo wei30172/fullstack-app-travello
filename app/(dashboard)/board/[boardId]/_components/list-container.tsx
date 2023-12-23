@@ -1,14 +1,14 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { IList } from "@/lib/models/types"
+import { ListWithCards } from "@/types"
 
 import { useToast } from "@/components/ui/use-toast"
 import { ListForm } from "./list-form"
 import { ListItem } from "./list-item"
 
 interface ListContainerProps {
-  data: IList[]
+  data: ListWithCards[]
   boardId: string
 }
 
@@ -31,7 +31,7 @@ export const ListContainer = ({
           <ListItem
             key={list._id}
             index={index}
-            data={list}
+            listData={list}
           />
         )
       })}

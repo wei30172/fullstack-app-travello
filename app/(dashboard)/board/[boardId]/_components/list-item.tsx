@@ -2,17 +2,18 @@
 
 import { ElementRef, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
-import { IList } from "@/lib/models/types"
+import { ICard } from "@/lib/models/types"
+import { ListWithCards } from "@/types"
 
 import { ListHeader } from "./list-header"
 
 interface ListItemProps {
-  data: IList
+  listData: ListWithCards
   index: number
 }
 
 export const ListItem = ({
-  data,
+  listData,
   index,
 }: ListItemProps) => {
   const textareaRef = useRef<ElementRef<"textarea">>(null)
@@ -35,17 +36,14 @@ export const ListItem = ({
       <div className="w-full rounded-md bg-gray-100 shadow-md pb-2">
         <ListHeader 
           onAddCard={enableEditing}
-          listData={data}
+          listData={listData}
         />
           <ol
             className={cn(
               "mx-1 px-1 py-0.5 flex flex-col gap-y-2",
-              data.cards.length > 0 ? "mt-2" : "mt-0",
+              listData.cards.length > 0 ? "mt-2" : "mt-0",
             )}
           >
-            {data.cards.map((card, index) => (
-              <p key={index}>{card.toString()}</p>
-            ))}
           </ol>
       </div>
     </li>
