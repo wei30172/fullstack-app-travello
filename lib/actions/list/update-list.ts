@@ -34,8 +34,12 @@ const updateListHandler = async (data: UpdateListInput): Promise<UpdateListRetur
     return { error: "Failed to update" }
   }
   
+  const listObject = list.toObject()
+  listObject._id = listObject._id.toString()
+  listObject.boardId = listObject.boardId.toString()
+
   revalidatePath(`/board/${boardId}`)
-  return { data: { ...list._doc, _id: list._id.toString() } }
+  return { data: listObject }
 }
 
 export const updateList = createValidatedAction(UpdateListValidation, updateListHandler)
