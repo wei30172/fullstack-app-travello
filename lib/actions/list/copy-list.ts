@@ -46,14 +46,7 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
     const newList = new List({
       title: `${listToCopy.title} - Copy`,
       boardId: listToCopy.boardId,
-      order: newOrder,
-    })
-
-    await newList.save()
-  
-    await Board.findByIdAndUpdate(
-      boardId, // 查詢條件
-      { $push: { lists: newList._id } // 更新內容
+      order: newOrder
     })
 
     // 複製卡片
@@ -69,16 +62,20 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
 
       // 更新新清單的 cards 欄位為新建立的卡片 ID
       newList.cards = copiedCards.map(card => card._id)
-      list = await newList.save()
     }
-  
+
+    list = await newList.save()
+
+    await Board.findByIdAndUpdate(
+      boardId, // 查詢條件
+      { $push: { lists: newList._id } // 更新內容
+    })
   } catch (error) {
     return { error: "Failed to copy" }
   }
 
-  console.log({list})
   revalidatePath(`/board/${boardId}`)
-  return { data: { title: "title"} }
+  return { data: { title: list.title } }
 }
 
 export const copyList = createValidatedAction(CopyListValidation, copyListHandler)
