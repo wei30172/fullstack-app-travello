@@ -1,7 +1,7 @@
 "use client"
 
 import { ElementRef, useRef } from "react"
-import { IList } from "@/lib/models/types"
+import { ListWithCards } from "@/types"
 import { useAction } from "@/hooks/use-validated-action"
 import { copyList } from "@/lib/actions/list/copy-list"
 import { deleteList } from "@/lib/actions/list/delete-list"
@@ -19,7 +19,7 @@ import { FormSubmit } from "@/components/form/form-submit"
 import { MoreHorizontal, X, Plus, Copy, Trash2 } from "lucide-react"
 
 interface ListOptionsProps {
-  listData: IList
+  listData: ListWithCards
   onAddCard: () => void
 }
 
@@ -51,7 +51,7 @@ export const ListOptions = ({
     onSuccess: (data) => {
       toast({
         status: "success",
-        title: `Itinerary "${data.title}" copied`,
+        title: `Itinerary "${data.title}" added`,
       })
       closeRef.current?.click()
     },

@@ -1,8 +1,8 @@
 "use client"
 
 import { ElementRef, useRef, useState } from "react"
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { cn } from "@/lib/utils"
-import { ICard } from "@/lib/models/types"
 import { ListWithCards } from "@/types"
 
 import { CardForm } from "./card-form"
@@ -34,28 +34,44 @@ export const ListItem = ({
   }
 
   return (
-    <li className="shrink-0 h-full w-[272px] select-none">
-      <div className="w-full rounded-md bg-gray-100 shadow-md pb-2">
-        <ListHeader 
-          onAddCard={enableEditing}
-          listData={listData}
-        />
-          <ol
-            className={cn(
-              "mx-1 px-1 py-0.5 flex flex-col gap-y-2",
-              listData.cards.length > 0 ? "mt-2" : "mt-0",
-            )}
+    <Draggable draggableId={listData._id} index={index}>
+      {(provided) => (
+        <li 
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+          className="shrink-0 h-full w-[272px] select-none"
+        >
+          <div
+            {...provided.dragHandleProps}
+            className="w-full rounded-md bg-gray-100 shadow-md pb-2"
           >
-            {
-              (listData.cards as ICard[]).map((card, index) => (
-                <CardItem
-                  index={index}
-                  key={card._id}
-                  cardData={card}
-                />
-              ))
-            }
-          </ol>
+            <ListHeader 
+              onAddCard={enableEditing}
+              listData={listData}
+            />
+            <Droppable droppableId={listData._id} type="card">
+              {(provided) => (
+                <ol
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className={cn(
+                    "mx-1 px-1 py-0.5 flex flex-col gap-y-2",
+                    listData.cards.length > 0 ? "mt-2" : "mt-0",
+                  )}
+                >
+                  {
+                    (listData.cards).map((card, index) => (
+                      <CardItem
+                        index={index}
+                        key={card._id}
+                        cardData={card}
+                      />
+                    ))
+                  }
+                  {provided.placeholder}
+                </ol>
+              )}
+          </Droppable>      
           <CardForm
             listId={listData._id}
             ref={textareaRef}
@@ -63,7 +79,9 @@ export const ListItem = ({
             enableEditing={enableEditing}
             disableEditing={disableEditing}
           />
-      </div>
-    </li>
+        </div>
+      </li>
+    )}
+    </Draggable>
   )
 }

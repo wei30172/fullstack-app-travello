@@ -1,5 +1,22 @@
+import { Document } from "mongoose"
+
 import { ICard, IList } from "@/lib/models/types"
 
-export type ListWithCards = IList & { cards: ICard[] }
+export interface ListWithCards extends Document {
+  title: string
+  order: number
+  boardId: string
+  cards: ICard[]
+  createdAt: Date
+  updatedAt: Date
+}
 
-export type CardWithList = ICard & { list: IList }
+export interface CardWithList extends Document {
+  title: string
+  order: number
+  description?: string
+  listId: string
+  createdAt: Date
+  updatedAt: Date
+  list: IList
+}

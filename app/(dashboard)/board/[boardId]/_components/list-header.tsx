@@ -5,14 +5,14 @@ import { useState, useRef, ElementRef } from "react"
 import { useEventListener } from "usehooks-ts"
 import { useAction } from "@/hooks/use-validated-action"
 import { updateList } from "@/lib/actions/list/update-list"
-import { IList } from "@/lib/models/types"
+import { ListWithCards } from "@/types"
 
 import { useToast } from "@/components/ui/use-toast"
 import { FormInput } from "@/components/form/form-input"
 import { ListOptions } from "./list-options"
 
 interface ListHeaderProps {
-  listData: IList
+  listData: ListWithCards
   onAddCard: () => void
 }
 
