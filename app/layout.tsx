@@ -5,8 +5,9 @@ import './globals.css'
 
 import { siteConfig } from '@/config/site'
 import ThemeProvider from '@/providers/theme-provider'
-import AuthProvider from '@/providers/auth-provider'
+import { ModalProvider } from '@/providers/modal-provider'
 import { Toaster } from '@/components/ui/toaster'
+import AuthProvider from '@/providers/auth-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 export const textFont = Montserrat({
@@ -54,6 +55,7 @@ export default function RootLayout({
             disableTransitionOnChange
             >
             <Toaster />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </AuthProvider>
