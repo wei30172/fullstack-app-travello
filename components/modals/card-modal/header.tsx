@@ -61,8 +61,8 @@ export const Header = ({
   }
 
   return (
-    <div className="flex items-start gap-x-3 mb-6 w-full">
-      <Map className="h-5 w-5 mt-1 text-gray-700" />
+    <div className="flex items-start gap-x-4 mb-6 w-full">
+      <Map className="h-5 w-5 mt-2 text-gray-700" />
       <div className="w-full">
         <form action={onSubmit}>
           <FormInput
@@ -83,8 +83,8 @@ export const Header = ({
 
 Header.Skeleton = function HeaderSkeleton() {
   return (
-    <div className="flex items-start gap-x-3 mb-6">
-      <Skeleton className="h-6 w-6 mt-1 bg-gray-200" />
+    <div className="flex items-start gap-x-4 mb-6">
+      <Skeleton className="h-6 w-6 mt-2 bg-gray-200" />
       <div>
         <Skeleton className="w-24 h-6 mb-1 bg-gray-200" />
         <Skeleton className="w-12 h-4 bg-gray-200" />
