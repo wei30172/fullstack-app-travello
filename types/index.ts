@@ -1,6 +1,6 @@
 import { Document } from "mongoose"
 
-import { ICard, IList } from "@/lib/models/types"
+import { ICard } from "@/lib/models/types"
 
 export interface ListWithCards extends Document {
   title: string
@@ -18,5 +18,5 @@ export interface CardWithList extends Document {
   listId: string
   createdAt: Date
   updatedAt: Date
-  list: IList
+  list: { title: string }
 }

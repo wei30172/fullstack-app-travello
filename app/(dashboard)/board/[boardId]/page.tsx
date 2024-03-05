@@ -11,14 +11,18 @@ interface BoardIdPageProps {
 const BoardIdPage = async ({
   params,
 }: BoardIdPageProps) => {
-  const lists = await getLists(params.boardId)
+  const res = await getLists(params.boardId)
 
   return (
     <div className="p-4 h-full overflow-x-auto">
-      <ListContainer
-        boardId={params.boardId}
-        data={lists}
-      />
+      {'error' in res ? (
+        <div>Error loading lists: {res.error}</div>
+      ) : (
+        <ListContainer
+          boardId={params.boardId}
+          data={res.data}
+        />
+      )}
     </div>
   )
 }
