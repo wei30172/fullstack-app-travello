@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button"
 const MarketingPage = () => {
   return (
     <div className="flex items-center justify-center flex-col bg-blue-50 text-gray-700">
-      <div className="text-center mt-10 mb-6">
+      <div className="text-center mb-2">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Plan with Travello
         </h1>
-        <p className="text-xl md:text-2xl">
+        <p className="text-lg md:text-xl">
           Simplify your journey with intuitive drag & drop planning
         </p>
       </div>
@@ -27,7 +27,7 @@ const MarketingPage = () => {
         />
       </div>
       <div className={cn(
-        "text-sm md:text-xl mt-4 max-w-xs md:max-w-2xl text-center mx-auto",
+        "text-sm md:text-lg max-w-xs md:max-w-2xl text-center mx-auto",
         textFont.className
       )}>
         Explore new destinations and effortlessly plan your trips with Travello&apos;s easy-to-use drag & drop interface. Travel planning made simple and fun.
