@@ -115,7 +115,7 @@ export const Description = ({
           <div
             onClick={enableEditing}
             role="button"
-            className="min-h-[78px] bg-gray-200 text-sm font-medium py-3 px-3.5 rounded-md"
+            className="min-h-[78px] text-sm font-medium py-3 px-3.5 rounded-md"
           >
             {data.description || "Add a more detailed description..."}
           </div>

@@ -63,7 +63,6 @@ export const Options = ({
       <Button
         onClick={onCopy}
         disabled={isLoadingCopy}
-        variant="gray"
         className="w-full justify-start"
         size="inline"
       >
@@ -73,7 +72,6 @@ export const Options = ({
       <Button
         onClick={onDelete}
         disabled={isLoadingDelete}
-        variant="gray"
         className="w-full justify-start"
         size="inline"
       >

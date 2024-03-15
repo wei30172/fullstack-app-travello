@@ -16,37 +16,44 @@ export const CardModal = () => {
   const isOpen = useCardModal((state) => state.isOpen)
   const onClose = useCardModal((state) => state.onClose)
 
-  const { data: cardData } = useQuery<CardWithList, Error>({
+  const { data: cardData, isLoading, error } = useQuery<CardWithList, Error>({
     queryKey: ['card', id],
-    queryFn: () => fetcher(`/api/cards/${id}`)
+    queryFn: () => (id ? fetcher(`/api/cards/${id}`) : Promise.reject(new Error('No ID provided'))),
+    enabled: !!id
   })
 
+  if (error) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent>
+          <div>Error loading card: {error.message}</div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={onClose}
-    >
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-      
-        {!cardData
-          ? <Header.Skeleton />
-          : <Header data={cardData} />
-        }
-        <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
-          <div className="col-span-3">
-            <div className="w-full space-y-6">
-              {!cardData
-                ? <Description.Skeleton />
-                : <Description data={cardData} />
-              }
+        {isLoading || !cardData ? (
+          <>
+            <Header.Skeleton />
+            <Description.Skeleton />
+            <Options.Skeleton />
+          </>
+        ) : (
+          <>
+            <Header data={cardData} />
+            <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
+              <div className="col-span-3">
+                <div className="w-full space-y-6">
+                  <Description data={cardData} />
+                </div>
+              </div>
+              <Options data={cardData} />
             </div>
-          </div>
-          {!cardData
-            ? <Options.Skeleton />
-            : <Options data={cardData} />
-          }
-        </div>
-      
+          </>
+        )}
       </DialogContent>
     </Dialog>
   )
