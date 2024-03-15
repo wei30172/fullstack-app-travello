@@ -7,7 +7,7 @@ export const SignOutButton = () => {
   const signout = () => {
     signOut({
       redirect: true,
-      callbackUrl: `${window.location.origin}/signin`
+      callbackUrl: `${window.location.origin}`
     })
   }
 

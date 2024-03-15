@@ -4,13 +4,10 @@ import { Montserrat } from "next/font/google"
 import './globals.css'
 
 import { siteConfig } from '@/config/site'
-import { QueryProvider } from '@/providers/query-provider'
 import ThemeProvider from '@/providers/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
-import { ModalProvider } from '@/providers/modal-provider'
-import AuthProvider from '@/providers/auth-provider'
 
 const inter = Inter({ subsets: ['latin'] })
+
 export const textFont = Montserrat({
   subsets: ["latin"],
   weight: [
@@ -48,20 +45,14 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <QueryProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem
-              disableTransitionOnChange
-              >
-              <Toaster />
-              <ModalProvider />
-              {children}
-            </ThemeProvider>
-          </QueryProvider>
-        </AuthProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        enableSystem
+        disableTransitionOnChange
+        >
+        {children}
+      </ThemeProvider>
       </body>
     </html>
   )
