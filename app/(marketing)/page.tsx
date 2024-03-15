@@ -2,12 +2,12 @@ import Link from "next/link"
 import Image from 'next/image'
 
 import { cn } from "@/lib/utils"
-import { textFont } from "@/app/layout"
+import { textFont } from "@/lib/fonts"
 import { Button } from "@/components/ui/button"
 
 const MarketingPage = () => {
   return (
-    <div className="flex items-center justify-center flex-col bg-blue-50 text-gray-700">
+    <div className="flex items-center justify-center flex-col text-gray-700">
       <div className="text-center mb-2">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Plan with Travello

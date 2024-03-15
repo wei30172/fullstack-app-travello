@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { cn } from "@/lib/utils"
-import { textFont } from "@/app/layout"
+import { textFont } from "@/lib/fonts"
 
 export const Logo = () => {
   return (
