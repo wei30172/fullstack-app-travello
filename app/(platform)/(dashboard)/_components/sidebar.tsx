@@ -11,11 +11,11 @@ export const Sidebar = () => {
       icon: <LayoutDashboard className="h-4 w-4 mr-2" />,
       href: "/boards",
     },
-    {
-      label: "Billing",
-      icon: <CreditCard className="h-4 w-4 mr-2" />,
-      href: "/billing",
-    },
+    // {
+    //   label: "Billing",
+    //   icon: <CreditCard className="h-4 w-4 mr-2" />,
+    //   href: "/billing",
+    // },
   ]
 
   return (

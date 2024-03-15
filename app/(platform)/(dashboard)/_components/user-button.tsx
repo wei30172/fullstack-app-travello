@@ -21,11 +21,11 @@ export const UserButton = () => {
       icon: <UserRoundCog className="h-4 w-4 mr-2" />,
       href: "/profile",
     },
-    {
-      label: "Billing",
-      icon: <CreditCard className="h-4 w-4 mr-2" />,
-      href: "/billing",
-    },
+    // {
+    //   label: "Billing",
+    //   icon: <CreditCard className="h-4 w-4 mr-2" />,
+    //   href: "/billing",
+    // },
   ]
   
   return (
