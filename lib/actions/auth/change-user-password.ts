@@ -25,7 +25,7 @@ const changeUserPasswordHandler = async (data: ChangeUserPasswordInput): Promise
   let user
 
   try {
-    connectDB()
+    await connectDB()
     
     user = await User.findById(session?.user?._id)
     if (!user) return { error: "User not found" }

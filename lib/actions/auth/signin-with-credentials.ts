@@ -12,7 +12,7 @@ type SignInWithCredentialsInput = z.infer<typeof SignInValidation>
 export const signInWithCredentials = async (data: SignInWithCredentialsInput) => {
   const { email, password } = data
 
-  connectDB()
+  await connectDB()
 
   const user = await User.findOne({ email })
   if (!user) { throw new Error("User not found") }

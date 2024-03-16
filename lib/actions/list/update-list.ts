@@ -21,7 +21,7 @@ const updateListHandler = async (data: UpdateListInput): Promise<UpdateListRetur
   let list
 
   try {
-    connectDB()
+    await connectDB()
 
     list = await List.findOneAndUpdate(
       { _id: id, boardId: boardId }, // 查詢條件

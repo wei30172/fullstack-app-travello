@@ -22,7 +22,7 @@ const updateCardHandler = async (data: UpdateCardInput): Promise<UpdateCardRetur
   let card
 
   try {
-    connectDB()
+    await connectDB()
 
     card = await Card.findByIdAndUpdate(
       { _id: id }, // 查詢條件

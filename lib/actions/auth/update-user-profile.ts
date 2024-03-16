@@ -21,7 +21,7 @@ const updateUserProfileHandler = async (data: UpdateUserProfileInput): Promise<U
   let user
 
   try {
-    connectDB()
+    await connectDB()
     
     user = await User.findByIdAndUpdate(
       session?.user?._id,

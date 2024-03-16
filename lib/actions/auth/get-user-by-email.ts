@@ -10,7 +10,7 @@ type GetUserByEmailReturn = IUser
 export const getUserByEmail = async (data: GetUserByEmailInput): Promise<GetUserByEmailReturn> => {
   const { email } =  data
   
-  connectDB()
+  await connectDB()
 
   const user = await User.findOne({email}).select("-password")
 

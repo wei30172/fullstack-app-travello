@@ -7,6 +7,7 @@ import connectDB from "@/lib/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
 import Card from "@/lib/models/card.model"
+import List from "@/lib/models/list.model"
 import { UpdateCardOrderValidation} from "@/lib/validations/card"
 
 type UpdateCardOrderInput = z.infer<typeof UpdateCardOrderValidation>
@@ -19,16 +20,37 @@ const updateCardOrderHandler = async (data: UpdateCardOrderInput): Promise<Updat
   const { items, boardId, } = data
 
   try {
-    connectDB()
+    await connectDB()
 
-    const updateOperations = items.map(card => 
-      Card.updateOne(
-        { _id: card._id }, // 查詢條件
-        { $set: { order: card.order } } // 更新内容
+    const updateOperations = items.map(async (card) => {
+      const currentCard = await Card.findById(card._id)
+      if (!currentCard) throw new Error('Card not found')
+
+      const sourceListId = currentCard.listId
+      const targetListId = card.listId
+
+      if (sourceListId.toString() !== targetListId.toString()) {
+        // 從原始列表中移除卡片ID
+        await List.updateOne(
+          { _id: sourceListId },
+          { $pull: { cards: card._id } }
+        );
+
+        // 將卡片ID新增到新列表
+        await List.updateOne(
+          { _id: targetListId },
+          { $push: { cards: card._id } }
+        );
+      }
+
+      // 更新卡片的 order 和 listId
+      return Card.updateOne(
+        { _id: card._id },
+        { $set: { order: card.order, listId: card.listId } }
       )
-    )
+    })
 
-    // 同時執行所有更新操作
+    // 等待所有操作完成
     await Promise.all(updateOperations)
 
   } catch (error) {

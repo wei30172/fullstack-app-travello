@@ -24,15 +24,6 @@ export interface IBoard extends Document {
   updatedAt: Date
 }
 
-export interface IList extends Document {
-  title: string
-  order: number
-  boardId: string
-  cards: string[]
-  createdAt: Date
-  updatedAt: Date
-}
-
 export interface ICard extends Document {
   title: string
   order: number

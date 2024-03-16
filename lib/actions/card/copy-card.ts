@@ -22,7 +22,7 @@ const copyCardHandler = async (data: CopyCardInput): Promise<CopyCardReturn> => 
   let card
 
   try {
-    connectDB()
+    await connectDB()
     
     const cardToCopy = await Card.findById(id)
     if (!cardToCopy) { return { error: "Card not found" } }

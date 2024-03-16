@@ -13,7 +13,7 @@ export const signInWithOauth = async (data: SignInWithOauthInput): Promise<SignI
   // console.log({account, profile})
 
   let user
-  connectDB()
+  await connectDB()
 
   user = await User.findOne({email: profile.email})
 

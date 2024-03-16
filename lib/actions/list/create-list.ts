@@ -22,7 +22,7 @@ const createListHandler = async (data: CreateListInput): Promise<CreateListRetur
   let list
 
   try {
-    connectDB()
+    await connectDB()
 
     const board = await Board.findById(boardId)
 

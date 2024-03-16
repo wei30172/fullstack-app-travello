@@ -19,7 +19,7 @@ const updateListOrderHandler = async (data: UpdateListOrderInput): Promise<Updat
   const { items, boardId } = data
 
   try {
-    connectDB()
+    await connectDB()
 
     const updateOperations = items.map(list => 
       List.updateOne(
@@ -28,7 +28,7 @@ const updateListOrderHandler = async (data: UpdateListOrderInput): Promise<Updat
       )
     )
   
-    // 同時執行所有更新操作
+    // 等待所有操作完成
     await Promise.all(updateOperations)
   
   } catch (error) {

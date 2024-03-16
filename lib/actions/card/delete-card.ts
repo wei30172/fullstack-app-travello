@@ -22,7 +22,7 @@ const deleteCardHandler = async (data: DeleteCardInput): Promise<DeleteCardRetur
   let card
 
   try {
-    connectDB()
+    await connectDB()
     
     card = await Card.findById(id)
     

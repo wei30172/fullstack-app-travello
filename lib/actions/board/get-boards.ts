@@ -9,7 +9,7 @@ import { IBoard } from "@/lib/models/types"
 export const getBoards = async (): Promise<IBoard[]> => {
   const { session } = await getUserSession()
 
-  connectDB()
+  await connectDB()
 
   let boards = await Board.find({ userId: session?.user?._id })
     .sort({ createdAt: -1 })

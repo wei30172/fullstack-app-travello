@@ -43,7 +43,6 @@ export const ListContainer = ({
 
   const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
     onSuccess: () => {
-      console.log("success")
       toast({
         status: "success",
         title: "Card reordered"
@@ -93,7 +92,7 @@ export const ListContainer = ({
       // 列表來源及目標列表
       const sourceList = newOrderedData.find(list => list._id === source.droppableId)
       const destList = newOrderedData.find(list => list._id === destination.droppableId)
-      
+
       if (!sourceList || !destList) {
         return
       }
@@ -128,7 +127,8 @@ export const ListContainer = ({
 
         const cardsForUpdate = reorderedCards.map(card => ({
           _id: card._id,
-          order: card.order
+          order: card.order,
+          listId: sourceList._id
         }))
         
         executeUpdateCardOrder({ items: cardsForUpdate, boardId })
@@ -153,15 +153,23 @@ export const ListContainer = ({
         destList.cards.forEach((card, idx) => {
           card.order = idx
         })
-
+        
         setOrderedData(newOrderedData)
 
-        const cardsForUpdate = destList.cards.map(card => ({
-          _id: card._id,
-          order: card.order
-        }))
-
-        executeUpdateCardOrder({ items: cardsForUpdate, boardId })
+        const updatedCards = [
+          ...sourceList.cards.map(card => ({
+            _id: card._id,
+            order: card.order,
+            listId: sourceList._id // 使用來源列表ID
+          })),
+          ...destList.cards.map(card => ({
+            _id: card._id,
+            order: card.order,
+            listId: destList._id, // 使用目標列表ID
+          })),
+        ];
+      
+        executeUpdateCardOrder({ items: updatedCards, boardId })
       }
     }
   }

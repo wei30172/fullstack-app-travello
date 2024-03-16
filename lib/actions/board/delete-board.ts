@@ -24,7 +24,7 @@ const deleteBoardhandler = async (data: DeleteBoardInput): Promise<DeleteBoardRe
   const { id } = data
 
   try {
-    connectDB()
+    await connectDB()
 
     await Board.findByIdAndDelete(id)
 

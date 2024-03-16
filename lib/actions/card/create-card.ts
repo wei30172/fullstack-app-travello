@@ -23,7 +23,7 @@ const createCardHandler = async (data: CreateCardInput): Promise<CreateCardRetur
   let card
 
   try {
-    connectDB()
+    await connectDB()
 
     const list = await List.findById(listId)
     

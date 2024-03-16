@@ -23,7 +23,7 @@ const deleteListHandler = async (data: DeleteListInput): Promise<DeleteListRetur
   let list
 
   try {
-    connectDB()
+    await connectDB()
 
     list = await List.findById(id)
     

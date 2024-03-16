@@ -36,7 +36,7 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
   let board
 
   try {
-    connectDB()
+    await connectDB()
 
     board = new Board({
       title,

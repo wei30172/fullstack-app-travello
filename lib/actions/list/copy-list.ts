@@ -24,7 +24,7 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
   let list
 
   try {
-    connectDB()
+    await connectDB()
 
     const listToCopy = await List.findOne({ _id: id, boardId: boardId })
       .populate({

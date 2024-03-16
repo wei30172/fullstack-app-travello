@@ -10,7 +10,7 @@ type Result<T> = { data: T } | { error: string }
 
 export const getLists = async (boardId: string): Promise<Result<ListWithCards[]>> => {
   try {
-    connectDB()
+    await connectDB()
 
     let lists = await List.find({ boardId: boardId })
     .populate({

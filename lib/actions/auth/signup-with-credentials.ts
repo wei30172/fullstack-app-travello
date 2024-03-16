@@ -17,7 +17,7 @@ const signUpWithCredentialsHandler = async (data: SignUpWithCredentialsInput): P
   let user
 
   try {
-    connectDB()
+    await connectDB()
 
     const existingUser = await User.findOne({ email })
     if (existingUser) return { error: "User already exists" }

@@ -11,7 +11,7 @@ import { IBoard } from "@/lib/models/types"
 export const getBoard = async (boardId: string): Promise<IBoard | null> => {
   const { session } = await getUserSession()
   
-  connectDB()
+  await connectDB()
 
   // console.log({boardId})
   if (!boardId || !mongoose.Types.ObjectId.isValid(boardId)) {

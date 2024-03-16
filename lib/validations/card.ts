@@ -35,7 +35,8 @@ export const UpdateCardOrderValidation = z.object({
   items: z.array(
     z.object({
       _id: z.string(),
-      order: z.number()
+      order: z.number(),
+      listId: z.string()
     })
   ),
   boardId: z.string()

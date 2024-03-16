@@ -21,7 +21,7 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
   let board
 
   try {
-    connectDB()
+    await connectDB()
 
     board = await Board.findByIdAndUpdate(
       id, // 查詢條件
