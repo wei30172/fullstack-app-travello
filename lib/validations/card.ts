@@ -18,9 +18,9 @@ export const UpdateCardValidation = z.object({
   boardId: z.string(),
   description: z.optional(
     z.string()
-    .min(1, "Title is required")
-    .min(3, "Title must be 3+ characters")
-    .max(100, "Title must be less than 100 characters"),
+    .min(1, "Description is required")
+    .min(3, "Description must be 3+ characters")
+    .max(300, "Description must be less than 300 characters"),
   ),
   title: z.optional(
     z.string()
