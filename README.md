@@ -1,8 +1,11 @@
 ## Intuitive Travel Planning Platform with Next.js
 
 Facilitated an easy-to-use drag and drop itinerary planner, allowing users to visually organize their travel schedule.
+
 1.Trello-Inspired Interface: Familiar drag-and-drop functionality for intuitive travel scheduling.
+
 2.Simple Duplication and Editing: Quickly copy and edit itineraries.
+
 
 ## Project Screenshots
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/26893b29-5d67-49ad-aee3-faeb25d782b2)
