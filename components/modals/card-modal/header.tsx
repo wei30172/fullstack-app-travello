@@ -3,9 +3,9 @@
 import { ElementRef, useRef, useState } from "react"
 import { useParams } from "next/navigation"
 import { useQueryClient } from "@tanstack/react-query"
-import { CardWithList } from "@/types"
-import { useAction } from "@/hooks/use-validated-action"
+import { CardWithList } from '@/lib/database/models/types'
 import { updateCard } from "@/lib/actions/card/update-card"
+import { useAction } from "@/hooks/use-validated-action"
 
 import { useToast } from "@/components/ui/use-toast"
 import { Skeleton } from "@/components/ui/skeleton"

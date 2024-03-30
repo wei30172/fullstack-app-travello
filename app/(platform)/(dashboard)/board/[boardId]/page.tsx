@@ -14,7 +14,7 @@ const BoardIdPage = async ({
   const res = await getLists(params.boardId)
 
   return (
-    <div className="p-4 h-full overflow-x-auto">
+    <section className="p-4 h-full overflow-x-auto">
       {'error' in res ? (
         <div>Error loading lists: {res.error}</div>
       ) : (
@@ -23,7 +23,7 @@ const BoardIdPage = async ({
           data={res.data}
         />
       )}
-    </div>
+    </section>
   )
 }
 

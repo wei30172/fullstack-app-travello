@@ -27,7 +27,7 @@ export const UpdateForm = () => {
   const { pending } = useFormStatus()
   const { toast } = useToast()
 
-  const { execute } = useAction(updateUserProfile, {
+  const { execute: executeUpdateUser } = useAction(updateUserProfile, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -46,7 +46,7 @@ export const UpdateForm = () => {
 
   async function onSubmit(values: z.infer<typeof UpdateUserValidation>) {
     update({name: values.name})
-    execute({name: values.name})
+    executeUpdateUser({name: values.name})
   }
 
   return (
@@ -75,10 +75,10 @@ export const UpdateForm = () => {
           {pending ? "Submitting..." : "Update"}
         </Button>
       </form>
+      <div className="flex items-center justify-center mt-4 mb-8">
+        <div className="border-b border-gray-400 w-full"></div>
+      </div>
       {session?.user.provider === "credentials" && <>
-        <div className="flex items-center justify-center mt-4 mb-8">
-          <div className="border-b border-gray-400 w-full"></div>
-        </div>
         <p className="text-center text-sm text-gray-600 mt-2">
           <Link className="text-blue-600 hover:underline" href="/change-password">
             Change Password

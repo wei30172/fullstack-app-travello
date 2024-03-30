@@ -3,9 +3,9 @@
 import { z } from "zod"
 import bcrypt from "bcrypt"
 
-import connectDB from "@/lib/mongodb"
-import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
-import User from "@/lib/models/user.model"
+import connectDB from "@/lib/database/mongodb"
+import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
+import User from "@/lib/database/models/user.model"
 import { SignUpValidation } from "@/lib/validations/auth"
 
 type SignUpWithCredentialsInput = z.infer<typeof SignUpValidation>

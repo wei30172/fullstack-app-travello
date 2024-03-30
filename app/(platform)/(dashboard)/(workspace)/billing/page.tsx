@@ -1,6 +1,6 @@
 const BillingPage = () => {
   return (
-    <div>BillingPage</div>
+    <section>BillingPage</section>
   )
 }
 

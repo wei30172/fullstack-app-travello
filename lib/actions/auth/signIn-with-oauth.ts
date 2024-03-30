@@ -2,8 +2,8 @@
 
 import { Account, Profile } from "next-auth"
 
-import connectDB from "@/lib/mongodb"
-import User from "@/lib/models/user.model"
+import connectDB from "@/lib/database/mongodb"
+import User from "@/lib/database/models/user.model"
 
 type SignInWithOauthInput = {account: Account, profile: Profile & { picture?: string }}
 type SignInWithOauthReturn = boolean

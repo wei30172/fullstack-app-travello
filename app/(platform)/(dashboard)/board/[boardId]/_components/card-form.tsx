@@ -43,12 +43,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
       })
       formRef.current?.reset()
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    },
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const onKeyDown = (e: KeyboardEvent) => {

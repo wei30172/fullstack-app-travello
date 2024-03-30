@@ -3,11 +3,11 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 
-import connectDB from "@/lib/mongodb"
+import connectDB from "@/lib/database/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
-import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
-import List from "@/lib/models/list.model"
-import Card from "@/lib/models/card.model"
+import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
+import List from "@/lib/database/models/list.model"
+import Card from "@/lib/database/models/card.model"
 import { CopyCardValidation } from "@/lib/validations/card"
 
 type CopyCardInput = z.infer<typeof CopyCardValidation>

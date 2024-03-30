@@ -8,7 +8,7 @@ const connectDB = async () => {
   }
 
   if (!process.env.MONGODB_URI) {
-    console.log("Error: Invalid/Missing environment variable MONGODB_URI")
+    console.log("Error: MONGODB_URI is missing")
     return
   }
 

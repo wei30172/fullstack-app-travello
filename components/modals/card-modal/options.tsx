@@ -1,10 +1,10 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { CardWithList } from "@/types"
-import { useAction } from "@/hooks/use-validated-action"
+import { CardWithList } from '@/lib/database/models/types'
 import { copyCard } from "@/lib/actions/card/copy-card"
 import { deleteCard } from "@/lib/actions/card/delete-card"
+import { useAction } from "@/hooks/use-validated-action"
 import { useCardModal } from "@/hooks/use-card-modal"
 
 import { useToast } from "@/components/ui/use-toast"
@@ -65,6 +65,7 @@ export const Options = ({
         disabled={isLoadingCopy}
         className="w-full justify-start"
         size="inline"
+        variant="secondary"
       >
         <Copy className="h-4 w-4 mr-2" />
         Copy
@@ -74,6 +75,7 @@ export const Options = ({
         disabled={isLoadingDelete}
         className="w-full justify-start"
         size="inline"
+        variant="destructive"
       >
         <Trash2 className="h-4 w-4 mr-2" />
         Delete

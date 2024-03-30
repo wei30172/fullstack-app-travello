@@ -43,12 +43,7 @@ export const ListForm = () => {
       disableEditing()
       router.refresh()
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    },
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const onKeyDown = (e: KeyboardEvent) => {

@@ -15,13 +15,13 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: [
     {
-      url: "/logo.png",
-      href: "/logo.png"
+      url: "/images/logo.png",
+      href: "/images/logo.png"
     }
   ]
 }
 
-export default function RootLayout({
+export default function Layout({
   children
 }: {
   children: React.ReactNode

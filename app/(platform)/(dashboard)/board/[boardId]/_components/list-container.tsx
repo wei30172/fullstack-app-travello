@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { DragDropContext, Droppable } from "@hello-pangea/dnd"
-import { ListWithCards } from "@/types"
 import { useAction } from "@/hooks/use-validated-action"
+import { ListWithCards } from "@/lib/database/models/types"
 import { updateListOrder } from "@/lib/actions/list/update-list-order"
 import { updateCardOrder } from "@/lib/actions/card/update-card-order"
 

@@ -14,23 +14,18 @@ import { useToast } from "@/components/ui/use-toast"
 import { MoreHorizontal, X } from "lucide-react"
 
 interface BoardOptionsProps {
-  id: string
+  boardId: string
 }
 
-export const BoardOptions = ({ id }: BoardOptionsProps) => {
+export const BoardOptions = ({ boardId }: BoardOptionsProps) => {
   const { toast } = useToast()
   
   const { execute, isLoading } = useAction(deleteBoard, {
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    }
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
-  const onDelete = () => {
-    execute({ id })
+  const handleDeleteBoard = () => {
+    execute({ boardId })
   }
 
   return (
@@ -58,7 +53,7 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
         </PopoverClose>
         <Button
           variant="ghost"
-          onClick={onDelete}
+          onClick={handleDeleteBoard}
           disabled={isLoading}
           className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
         >

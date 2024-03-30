@@ -2,8 +2,8 @@
 
 import { ElementRef, useRef, useState } from "react"
 import { Draggable, Droppable } from "@hello-pangea/dnd";
+import { ListWithCards } from "@/lib/database/models/types"
 import { cn } from "@/lib/utils"
-import { ListWithCards } from "@/types"
 
 import { CardForm } from "./card-form"
 import { CardItem } from "./card-item"

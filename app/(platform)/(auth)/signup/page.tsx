@@ -2,9 +2,9 @@ import { SignUpForm } from "../_components/signup-form"
 
 const SignUpPage = () => {
   return (
-    <div className="w-full">
+    <section className="w-full">
       <SignUpForm />
-    </div>
+    </section>
   )
 }
 

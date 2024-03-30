@@ -3,9 +3,9 @@
 import { z } from "zod"
 import bcrypt from "bcrypt"
 
-import connectDB from "@/lib/mongodb"
-import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
-import User from "@/lib/models/user.model"
+import connectDB from "@/lib/database/mongodb"
+import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
+import User from "@/lib/database/models/user.model"
 import { ChangePasswordValidation } from "@/lib/validations/auth"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
 
@@ -16,7 +16,7 @@ const changeUserPasswordHandler = async (data: ChangeUserPasswordInput): Promise
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
   
-  if (session.user.provider !== "credentials") {
+  if (session?.user?.provider !== "credentials") {
     return { error: `Signed in via ${session?.user?.provider}. Changes not allowed with this method.` }
   }
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, ElementRef  } from "react"
-import { IBoard } from "@/lib/models/types"
+import { IBoard } from "@/lib/database/models/types"
 import { useAction } from "@/hooks/use-validated-action"
 import { updateBoard } from "@/lib/actions/board/update-board"
 
@@ -25,12 +25,7 @@ export const BoardTitleForm = ({ boardData }: BoardTitleFormProps) => {
       setTitle(data.title)
       disableEditing()
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    }
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const formRef = useRef<ElementRef<"form">>(null)

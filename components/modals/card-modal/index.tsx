@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 
-import { CardWithList } from "@/types"
+import { CardWithList } from '@/lib/database/models/types'
 import { fetcher } from "@/lib/utils"
 import { useCardModal } from "@/hooks/use-card-modal"
 

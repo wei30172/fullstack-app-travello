@@ -3,8 +3,8 @@
 import { z } from "zod"
 import bcrypt from "bcrypt"
 
-import connectDB from "@/lib/mongodb"
-import User from "@/lib/models/user.model"
+import connectDB from "@/lib/database/mongodb"
+import User from "@/lib/database/models/user.model"
 import { SignInValidation } from "@/lib/validations/auth"
 
 type SignInWithCredentialsInput = z.infer<typeof SignInValidation>

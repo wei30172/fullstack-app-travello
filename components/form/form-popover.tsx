@@ -43,12 +43,7 @@ export const FormPopover = ({
       closeRef.current?.click()
       router.push(`/board/${data._id}`)
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    }
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const onSubmit = (formData: FormData) => {

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react"
 
-import { ActionState, FieldErrors } from "@/lib/create-validated-action"
+import { ActionState, FieldErrors } from "@/lib/actions/create-validated-action"
 
 type Action<TInput, TOutput> = (data: TInput) => Promise<ActionState<TInput, TOutput>>
 

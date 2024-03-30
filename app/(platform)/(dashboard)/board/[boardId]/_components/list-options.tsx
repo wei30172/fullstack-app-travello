@@ -1,8 +1,8 @@
 "use client"
 
 import { ElementRef, useRef } from "react"
-import { ListWithCards } from "@/types"
 import { useAction } from "@/hooks/use-validated-action"
+import { ListWithCards } from "@/lib/database/models/types"
 import { copyList } from "@/lib/actions/list/copy-list"
 import { deleteList } from "@/lib/actions/list/delete-list"
 
@@ -39,12 +39,7 @@ export const ListOptions = ({
       })
       closeRef.current?.click()
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    }
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const { execute: executeCopy } = useAction(copyList, {
@@ -55,12 +50,7 @@ export const ListOptions = ({
       })
       closeRef.current?.click()
     },
-    onError: (error) => {
-      toast({
-        status: "error",
-        title: error
-      })
-    }
+    onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const onDelete = (formData: FormData) => {

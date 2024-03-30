@@ -1,8 +1,8 @@
 "use server"
 
-import connectDB from "@/lib/mongodb"
-import User from "@/lib/models/user.model"
-import { IUser } from "@/lib/models/types"
+import connectDB from "@/lib/database/mongodb"
+import User from "@/lib/database/models/user.model"
+import { IUser } from "@/lib/database/models/types"
 
 type GetUserByEmailInput = {email: string}
 type GetUserByEmailReturn = IUser

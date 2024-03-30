@@ -10,9 +10,9 @@ const SignInPage = ({
 }: SignInPageProps) => {
   // console.log(callbackUrl)
   return (
-    <div className="w-full">
+    <section className="w-full">
       <SignInForm callbackUrl={callbackUrl || "/boards"} />
-    </div>
+    </section>
   )
 }
 

@@ -4,8 +4,8 @@ import { useState, useRef, ElementRef } from "react"
 import { useParams } from "next/navigation"
 import { useQueryClient } from "@tanstack/react-query"
 import { useEventListener, useOnClickOutside } from "usehooks-ts"
-import { CardWithList } from "@/types"
 import { useAction } from "@/hooks/use-validated-action"
+import { CardWithList } from '@/lib/database/models/types'
 import { updateCard } from "@/lib/actions/card/update-card"
 
 import { useToast } from "@/components/ui/use-toast"

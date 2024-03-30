@@ -3,13 +3,13 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 
-import connectDB from "@/lib/mongodb"
+import connectDB from "@/lib/database/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
-import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
-import Board from "@/lib/models/board.model"
-import List from "@/lib/models/list.model"
-import Card from "@/lib/models/card.model"
-import { ICard } from "@/lib/models/types"
+import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
+import Board from "@/lib/database/models/board.model"
+import List from "@/lib/database/models/list.model"
+import Card from "@/lib/database/models/card.model"
+import { ICard } from "@/lib/database/models/types"
 import { CopyListValidation } from "@/lib/validations/list"
 
 type CopyListInput = z.infer<typeof CopyListValidation>

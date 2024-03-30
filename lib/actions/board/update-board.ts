@@ -3,10 +3,10 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 
-import connectDB from "@/lib/mongodb"
+import connectDB from "@/lib/database/mongodb"
 import { getUserSession } from "@/lib/actions/auth/get-user-session"
-import { ActionState, createValidatedAction } from "@/lib/create-validated-action"
-import Board from "@/lib/models/board.model"
+import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
+import Board from "@/lib/database/models/board.model"
 import { UpdateBoardValidation } from "@/lib/validations/board"
 
 type UpdateBoardInput = z.infer<typeof UpdateBoardValidation>

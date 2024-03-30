@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 const MarketingPage = () => {
   return (
-    <div className="flex items-center justify-center flex-col text-gray-700">
+    <section className="flex items-center justify-center flex-col text-gray-700">
       <div className="text-center mb-2">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Plan with Travello
@@ -33,7 +33,7 @@ const MarketingPage = () => {
         Explore new destinations and effortlessly plan your trips with Travello&apos;s easy-to-use drag & drop interface. Travel planning made simple and fun.
       </div>
       <Button
-        className="mt-4"
+        className="my-4"
         variant="primary"
         size="lg"
         asChild
@@ -42,7 +42,7 @@ const MarketingPage = () => {
           Start Your Journey
         </Link>
       </Button>
-    </div>
+    </section>
   )
 }
 

@@ -2,9 +2,9 @@ import { ChangePasswordForm } from "../_components/change-password-form"
 
 const ChangePasswordPage = async () => {
   return (
-    <div className="w-full">
+    <section className="w-full">
       <ChangePasswordForm />
-    </div>
+    </section>
   )
 }
 
