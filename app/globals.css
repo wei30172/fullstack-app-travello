@@ -80,3 +80,32 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+/* ====== POPOVER-CONTENT STYLES ====== */
+.centered-popover {
+  position: fixed !important;
+  transform: translate(-50%, -50%);
+}
+
+/* ====== REACT-DATEPICKER STYLES ====== */
+.datePicker {
+  width: 100%;
+  margin-top: 0 !important;
+}
+
+.react-datepicker__input-container input {
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  margin-left: 4px;
+}
+
+.react-datepicker__day--selected {
+  background-color: #049488 !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #049488 !important;
+}

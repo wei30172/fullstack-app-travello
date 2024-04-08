@@ -16,8 +16,8 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
-  const { title, id } = data
-
+  const { id, title, location, startDate, endDate, imageUrl } = data
+  
   let board
 
   try {
@@ -25,10 +25,14 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
 
     board = await Board.findByIdAndUpdate(
       id, // 查詢條件
-      { title }, // 更新內容  
-      { new: true } // 返回更新後的文檔
+      { $set: { title, location, startDate, endDate, imageUrl } }, // 只更新提供的內容  
+      { new: true, omitUndefined: true } // 返回更新後的文檔，只更新提供的內容
     )
     // console.log({id, board})
+
+    if (!board) {
+      return { error: "Board not found" }
+    }
 
   } catch (error) {
     return { error: "Failed to update" }

@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
 import {
   Controller,
   ControllerProps,
@@ -9,6 +8,8 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form"
+import { Slot } from "@radix-ui/react-slot"
+import { AlertCircle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
@@ -152,14 +153,19 @@ const FormMessage = React.forwardRef<
   }
 
   return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <div className="mt-2 text-xs text-red-600">
+      <div className="flex items-center font-medium p-1 mb-2 border-red-600 bg-red-100 rounded-lg">
+        <AlertCircle className="h-5 w-5 mr-2 text-red-600" />
+        <p
+          ref={ref}
+          id={formMessageId}
+          className={className}
+          {...props}
+        >
+          {body}
+        </p>
+      </div>
+    </div>
   )
 })
 FormMessage.displayName = "FormMessage"

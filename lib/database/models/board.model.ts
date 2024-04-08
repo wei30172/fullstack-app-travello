@@ -1,28 +1,28 @@
 import mongoose from "mongoose"
 
 const boardSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  imageId: {
-    type: String
+  title: {
+    type: String,
+    required: true
   },
-  imageThumbUrl: {
-    type: String
+  location: {
+    type: String,
+    required: true
   },
-  imageFullUrl: {
-    type: String
+  startDate: {
+    type: Date,
+    required: true
   },
-  imageUserName: {
-    type: String
+  endDate: {
+    type: Date,
+    required: true
   },
-  imageLinkHTML: {
+  imageUrl: {
     type: String
   },
   lists: [{

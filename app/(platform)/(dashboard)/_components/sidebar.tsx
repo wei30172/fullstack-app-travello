@@ -7,7 +7,7 @@ import {
 export const Sidebar = () => {
   const routes = [
     {
-      label: "Boards",
+      label: "Trips",
       icon: <LayoutDashboard className="h-4 w-4 mr-2" />,
       href: "/boards",
     },

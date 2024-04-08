@@ -27,7 +27,7 @@ const createListHandler = async (data: CreateListInput): Promise<CreateListRetur
     const board = await Board.findById(boardId)
 
     if (!board) {
-      return { error: "Board not found" }
+      return { error: "Trip not found" }
     }
 
     // 取得最後一個 List 的順序

@@ -22,7 +22,7 @@ export const getBoard = async (boardId: string): Promise<IBoard | null> => {
   const board = await Board.findOne({ _id: boardId, userId: session?.user?._id })
 
   if (!board) {
-    console.log("Board not found")
+    console.log("Trip not found")
     return null
   }
 

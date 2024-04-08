@@ -20,32 +20,14 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
-  const { title } = data
-  // const { title, image } = data
-  // const [
-  //   imageId,
-  //   imageThumbUrl,
-  //   imageFullUrl,
-  //   imageLinkHTML,
-  //   imageUserName
-  // ] = image.split("|")
-  // if (!imageId || !imageThumbUrl || !imageFullUrl || !imageUserName || !imageLinkHTML) {
-  //   return { error: "Missing fields. Failed to create board" }
-  // }
-
   let board
 
   try {
     await connectDB()
 
     board = new Board({
-      title,
+      ...data,
       userId: session?.user?._id
-      // imageId,
-      // imageThumbUrl,
-      // imageFullUrl,
-      // imageUserName,
-      // imageLinkHTML
     })
     
     // console.log({board})

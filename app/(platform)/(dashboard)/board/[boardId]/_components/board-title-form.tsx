@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, ElementRef  } from "react"
+import { useState, useEffect, useRef, ElementRef  } from "react"
 import { IBoard } from "@/lib/database/models/types"
 import { useAction } from "@/hooks/use-validated-action"
 import { updateBoard } from "@/lib/actions/board/update-board"
@@ -16,7 +16,7 @@ interface BoardTitleFormProps {
 export const BoardTitleForm = ({ boardData }: BoardTitleFormProps) => {
   const { toast } = useToast()
 
-  const { execute } = useAction(updateBoard, {
+  const { execute: executeUpdateBoard } = useAction(updateBoard, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -33,6 +33,10 @@ export const BoardTitleForm = ({ boardData }: BoardTitleFormProps) => {
 
   const [title, setTitle] = useState(boardData.title)
   const [isEditing, setIsEditing] = useState(false)
+
+  useEffect(() => {
+    setTitle(boardData.title)
+  }, [boardData.title])
 
   const enableEditing = () => {
     setIsEditing(true)
@@ -53,7 +57,7 @@ export const BoardTitleForm = ({ boardData }: BoardTitleFormProps) => {
       return disableEditing()
     }
 
-    execute({
+    executeUpdateBoard({
       title,
       id: boardData._id
     })

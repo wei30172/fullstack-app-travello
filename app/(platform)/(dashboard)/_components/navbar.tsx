@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/shared/logo"
 import { ModeToggle } from "@/components/shared/mode-toggle"
-import { UserButton } from "./user-button"
 import { FormPopover } from "@/components/form/form-popover"
+import { UserButton } from "./user-button"
 import { MobileSidebar } from "./mobile-sidebar"
 import { Plus } from "lucide-react"
 
@@ -19,9 +19,11 @@ export const Navbar = () => {
             Create
           </Button>
         </FormPopover>
-        <Button variant="primary" size="sm" className="rounded-sm block md:hidden">
-          <Plus className="h-4 w-4" />
-        </Button>
+        <FormPopover sideOffset={8}>
+          <Button variant="primary" size="sm" className="rounded-sm block md:hidden">
+            <Plus className="h-4 w-4" />
+          </Button>
+        </FormPopover>
       </div>
       <div className="ml-auto flex items-center gap-x-2">
         <ModeToggle />
