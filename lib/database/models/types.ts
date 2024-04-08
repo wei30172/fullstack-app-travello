@@ -12,13 +12,12 @@ export interface IUser extends Document {
 }
 
 export interface IBoard extends Document {
-  title: string
   userId: string
-  imageId?: string
-  imageThumbUrl?: string
-  imageFullUrl?: string
-  imageUserName?: string
-  imageLinkHTML?: string
+  title: string
+  location: string
+  startDate: Date
+  endDate: Date
+  imageUrl?: string
   lists?: string[]
   createdAt: Date
   updatedAt: Date
