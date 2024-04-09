@@ -7,6 +7,7 @@ import List from '@/lib/database/models/list.model'
 import Board from '@/lib/database/models/board.model'
 
 export async function GET(
+  req: Request,
   { params }: { params: { cardId: string } }
 ) {
   try {

@@ -104,7 +104,7 @@ export const BoardForm = ({
       return
     }
 
-    const res: any = await fetch("/api/board/plan", {
+    const res: any = await fetch("/api/boards/plan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
