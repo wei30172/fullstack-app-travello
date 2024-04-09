@@ -15,6 +15,7 @@ Facilitated an easy-to-use drag and drop itinerary planner, allowing users to vi
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/bf3da0fb-e1c2-4765-9147-da1701aa6525)
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/4f45956d-6e3e-41d5-9fd1-3488be36a8d1)
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/31309e42-9816-477f-8e6b-31430f10cbd1)
+![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/b333d6ad-5b71-43d7-9b24-2277162df4e2)
 
 ## Getting Started
 
