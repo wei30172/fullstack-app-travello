@@ -9,14 +9,17 @@ import {
   ActionState,
   createValidatedAction
 } from "@/lib/actions/create-validated-action"
+import { calculateDays, formatDateTime } from "@/lib/utils"
 
 import Board from "@/lib/database/models/board.model"
 import { CreateBoardValidation } from "@/lib/validations/board"
+import { createListHandler } from "@/lib/actions/list/create-list"
+
 
 type CreateBoardInput = z.infer<typeof CreateBoardValidation>
 type CreateBoardReturn = ActionState<CreateBoardInput, { _id: string }>
 
-const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardReturn> => {
+export const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardReturn> => {
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
@@ -32,7 +35,22 @@ const createBoardhandler = async (data: CreateBoardInput): Promise<CreateBoardRe
     
     // console.log({board})
     await board.save()
-    
+
+    const days = calculateDays(data.startDate, data.endDate)
+    for (let i = 0; i < days; i++) {
+      const currentDate = new Date(data.startDate.getTime() + i * (1000 * 60 * 60 * 24))
+      const { dateOnly } = formatDateTime(currentDate)
+
+      const listData = {
+        title: `Day ${i + 1}: ${dateOnly}`,
+        boardId: board._id.toString()
+      }
+
+      const listResult = await createListHandler(listData)
+      if (listResult.error) {
+        throw new Error(listResult.error)
+      }
+    }
   } catch (error) {
     return { error: "Failed to create" }
   }

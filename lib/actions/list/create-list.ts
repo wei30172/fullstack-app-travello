@@ -13,7 +13,7 @@ import { CreateListValidation } from "@/lib/validations/list"
 type CreateListInput = z.infer<typeof CreateListValidation>
 type CreateListReturn = ActionState<CreateListInput, { title: string }>
 
-const createListHandler = async (data: CreateListInput): Promise<CreateListReturn> => {
+export const createListHandler = async (data: CreateListInput): Promise<CreateListReturn> => {
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 

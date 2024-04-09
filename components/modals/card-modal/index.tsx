@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 
-import { CardWithList } from '@/lib/database/models/types'
+import { CardWithList } from "@/lib/database/models/types"
 import { fetcher } from "@/lib/utils"
 import { useCardModal } from "@/hooks/use-card-modal"
 
@@ -17,8 +17,8 @@ export const CardModal = () => {
   const onClose = useCardModal((state) => state.onClose)
 
   const { data: cardData, isLoading, error } = useQuery<CardWithList, Error>({
-    queryKey: ['card', id],
-    queryFn: () => (id ? fetcher(`/api/cards/${id}`) : Promise.reject(new Error('No ID provided'))),
+    queryKey: ["card", id],
+    queryFn: () => (id ? fetcher(`/api/cards/${id}`) : Promise.reject(new Error("No ID provided"))),
     enabled: !!id
   })
 

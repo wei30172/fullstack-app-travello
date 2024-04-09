@@ -1,11 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { useFormStatus } from 'react-dom'
+import { useFormStatus } from "react-dom"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useRouter } from "next/navigation"
 import DatePicker from "react-datepicker"
+import Markdown from "react-markdown"
 
 import { useAction } from "@/hooks/use-validated-action"
 import { IBoard } from "@/lib/database/models/types"
@@ -14,7 +16,7 @@ import { createBoard } from "@/lib/actions/board/create-board"
 import { updateBoard } from "@/lib/actions/board/update-board"
 
 import "react-datepicker/dist/react-datepicker.css"
-import { Goal, FileImage, MapPin, CalendarDays } from "lucide-react"
+import { Goal, MapPin, CalendarDays } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -41,6 +43,8 @@ export const BoardForm = ({
   const router = useRouter()
   const { pending } = useFormStatus()
   const { toast } = useToast()
+
+  const [ openAIResponse, setOpenAIResponse ] = useState<string>("")
 
   const { execute: executeCreateBoard } = useAction(createBoard, {
     onSuccess: (data) => {
@@ -79,7 +83,7 @@ export const BoardForm = ({
     ? { 
       ...boardData, 
       startDate: new Date(boardData.startDate), 
-      endDate: new Date(boardData.endDate) 
+      endDate: new Date(boardData.endDate)
     }
     : eventDefaultValues
 
@@ -88,9 +92,59 @@ export const BoardForm = ({
     defaultValues: initialValues
   })
 
+  async function askAI () {
+    setOpenAIResponse("")
+
+    const values = form.watch()
+    if (!values.location || !values.startDate || !values.endDate) {
+      toast({
+        status: "warning",
+        description: "Please provide location, start date, and end date."
+      })
+      return
+    }
+
+    const res: any = await fetch("/api/board/plan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        location: values.location,
+        startDate: values.startDate,
+        endDate: values.endDate
+      })
+    })
+    
+    if (!res.ok || !res.body) {
+      toast({
+        status: "error",
+        title: "Error sending message!",
+        description: "The OpenAI API key is currently not available for use."
+      })
+      return
+    }
+
+    const reader = res.body?.getReader()
+    const decoder = new TextDecoder()
+
+    while (true) {
+      const { value, done } = await reader?.read()
+
+      const currentChunk = decoder.decode(value)
+      setOpenAIResponse((prev) => prev + currentChunk)
+
+      if(done) {
+        break
+      }
+    }
+
+    // console.log({openAIResponse})
+  }
+
   async function onSubmit(values: z.infer<typeof CreateBoardValidation>) {
     // console.log({values})
-    if (type === 'Create') {
+    if (type === "Create") {
       executeCreateBoard({
         title: values.title,
         location: values.location,
@@ -100,7 +154,7 @@ export const BoardForm = ({
       })
     }
 
-    if (type === 'Update') {
+    if (type === "Update") {
       if (!boardData?._id) {
         router.back()
         return
@@ -180,10 +234,12 @@ export const BoardForm = ({
                 <p className="text-muted-foreground whitespace-nowrap">Start Date</p>
               </FormLabel>
               <FormControl className="cursor-pointer text-sm flex">
-                <DatePicker 
+                <DatePicker
                   selected={field.value} 
                   onChange={(date: Date) => field.onChange(date)} 
-                  dateFormat="MM/dd/yyyy"
+                  showTimeSelect
+                  timeInputLabel="Time:"
+                  dateFormat="MM/dd/yyyy h:mm aa"
                   wrapperClassName="datePicker"
                 />
               </FormControl>
@@ -201,10 +257,12 @@ export const BoardForm = ({
                 <p className="text-muted-foreground whitespace-nowrap">End Date</p>
               </FormLabel>
               <FormControl className="cursor-pointer text-sm">
-                <DatePicker 
+                <DatePicker
                   selected={field.value} 
                   onChange={(date: Date) => field.onChange(date)} 
-                  dateFormat="MM/dd/yyyy"
+                  showTimeSelect
+                  timeInputLabel="Time:"
+                  dateFormat="MM/dd/yyyy h:mm aa"
                   wrapperClassName="datePicker"
                 />
               </FormControl>
@@ -219,6 +277,26 @@ export const BoardForm = ({
         >
           {pending ? "Submitting..." : type}
         </Button>
+        {
+          type === "Update" && <Button
+          className="w-full my-2"
+          type="button"
+          onClick={askAI}
+          disabled={pending}
+          variant="outline"
+        >
+          Ask AI
+        </Button>
+        }
+        {
+          type === "Update" && openAIResponse !== "" ?
+          <div className="border-t border-gray-300 pt-4" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+            <h2 className="text-xl font-bold mb-2">Trip suggestions</h2>
+            <Markdown>{openAIResponse}</Markdown>
+          </div>
+          :
+          null
+        }
       </form>
     </Form>
   )

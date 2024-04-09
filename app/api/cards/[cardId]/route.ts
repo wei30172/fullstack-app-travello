@@ -7,7 +7,6 @@ import List from '@/lib/database/models/list.model'
 import Board from '@/lib/database/models/board.model'
 
 export async function GET(
-  req: Request,
   { params }: { params: { cardId: string } }
 ) {
   try {
@@ -23,6 +22,10 @@ export async function GET(
         select: 'userId'
       }
     })
+  
+    if (!card) {
+      new NextResponse('Card not found', { status: 404 })
+    }
 
     const cardObject: CardWithList = {
       ...card.toObject(),
@@ -33,11 +36,12 @@ export async function GET(
       }
     }
 
+
     // console.log({cardObject})
 
     return NextResponse.json(cardObject)
   } catch (error) {
-    console.error(error)
+    console.error('[ERROR]', error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

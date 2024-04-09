@@ -10,7 +10,7 @@ export const CreateBoardValidation = z.object({
   startDate: z.date(),
   endDate: z.date(),
   imageUrl: z.optional(z.string())
-}).refine(data => data.endDate > data.startDate, {
+}).refine(data => data.endDate >= data.startDate, {
   message: "End date must be after start date",
   path: ["endDate"]
 })
@@ -26,7 +26,7 @@ export const UpdateBoardValidation = z.object({
   endDate:  z.optional(z.date()),
   imageUrl: z.optional(z.string()),
   id: z.string()
-}).refine((data) => data.endDate == null || data.startDate == null || data.endDate > data.startDate, {
+}).refine((data) => data.endDate == null || data.startDate == null || data.endDate >= data.startDate, {
   message: "End date must be after start date",
   path: ["endDate"]
 })

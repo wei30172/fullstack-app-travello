@@ -5,12 +5,22 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-export const formatDateTime = (input: Date | string, locale: string = 'en-US') => {
+export const calculateDays = (start: Date, end: Date) => {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  const diffInMs = endDate.getTime() - startDate.getTime()
+  const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
+
+  return Math.floor(diffInDays) + 1
+}
+
+export const formatDateTime = (input: Date | string) => {
   const date = new Date(input)
 
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'short', // e.g., "Mon"
-    month: 'short', // e.g., "Jul"
+    weekday: 'short', // e.g., "Sat"
+    month: 'short', // e.g., "Mar"
     day: 'numeric', // e.g., 31
     hour: 'numeric', // e.g., 1
     minute: 'numeric', // e.g., 45
@@ -20,7 +30,7 @@ export const formatDateTime = (input: Date | string, locale: string = 'en-US') =
   const dateOptions: Intl.DateTimeFormatOptions = {
     weekday: 'short',
     month: 'short',
-    year: 'numeric', // e.g., 2023
+    year: 'numeric', // e.g., 2024
     day: 'numeric'
   }
 
@@ -30,13 +40,14 @@ export const formatDateTime = (input: Date | string, locale: string = 'en-US') =
     hour12: true
   }
 
-  const formattedDateTime = date.toLocaleString(locale, dateTimeOptions)
-  const formattedDate = date.toLocaleString(locale, dateOptions)
-  const formattedTime = date.toLocaleString(locale, timeOptions)
+  const formattedDateTime = date.toLocaleString(undefined, dateTimeOptions)
+  const formattedDate = date.toLocaleString(undefined, dateOptions)
+  const formattedTime = date.toLocaleString(undefined, timeOptions)
+
 
   return {
     dateTime: formattedDateTime, // e.g., "Sat, Mar 25, 2:30 PM"
-    dateOnly: formattedDate, // e.g., "Sat, Mar 25, 2023"
+    dateOnly: formattedDate, // e.g., "Sat, Mar 25, 2024"
     timeOnly: formattedTime // e.g., "2:30 PM"
   }
 }
