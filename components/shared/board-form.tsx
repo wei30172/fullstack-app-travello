@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useFormStatus } from "react-dom"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -16,7 +16,7 @@ import { createBoard } from "@/lib/actions/board/create-board"
 import { updateBoard } from "@/lib/actions/board/update-board"
 
 import "react-datepicker/dist/react-datepicker.css"
-import { Goal, MapPin, CalendarDays } from "lucide-react"
+import { Goal, MapPin, CalendarDays, Pause } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -45,6 +45,8 @@ export const BoardForm = ({
   const { toast } = useToast()
 
   const [ openAIResponse, setOpenAIResponse ] = useState<string>("")
+  const [isStreaming, setIsStreaming] = useState(false)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   const { execute: executeCreateBoard } = useAction(createBoard, {
     onSuccess: (data) => {
@@ -93,6 +95,7 @@ export const BoardForm = ({
   })
 
   async function askAI () {
+    setIsStreaming(true)
     setOpenAIResponse("")
 
     const values = form.watch()
@@ -104,42 +107,64 @@ export const BoardForm = ({
       return
     }
 
-    const res: any = await fetch("/api/boards/plan", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        location: values.location,
-        startDate: values.startDate,
-        endDate: values.endDate
+    try {
+      abortControllerRef.current = new AbortController()
+      
+      const res: any = await fetch("/api/boards/plan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          location: values.location,
+          startDate: values.startDate,
+          endDate: values.endDate
+        }),
+        signal: abortControllerRef.current.signal
       })
-    })
-    
-    if (!res.ok || !res.body) {
-      toast({
-        status: "error",
-        title: "Error sending message!",
-        description: "The OpenAI API key is currently not available for use."
-      })
-      return
-    }
-
-    const reader = res.body?.getReader()
-    const decoder = new TextDecoder()
-
-    while (true) {
-      const { value, done } = await reader?.read()
-
-      const currentChunk = decoder.decode(value)
-      setOpenAIResponse((prev) => prev + currentChunk)
-
-      if(done) {
-        break
+      
+      if (!res.ok || !res.body) {
+        toast({
+          status: "error",
+          title: "Error sending message!",
+          description: "The OpenAI API key is currently not available for use."
+        })
+        return
+      }
+  
+      const reader = res.body?.getReader()
+      const decoder = new TextDecoder()
+  
+      while (true) {
+        const { value, done } = await reader?.read()
+  
+        const currentChunk = decoder.decode(value)
+        setOpenAIResponse((prev) => prev + currentChunk)
+  
+        if(done) {
+          break
+        }
+      }
+    } catch (error: any) {
+      if (error.name !== "AbortError") {
+        toast({
+          status: "error",
+          description: "Error sending message!"
+        })
       }
     }
 
     // console.log({openAIResponse})
+    abortControllerRef.current = null
+    setIsStreaming(false)
+  }
+
+  const handleStop = () => {
+    if (!abortControllerRef.current) {
+      return
+    }
+    abortControllerRef.current.abort()
+    abortControllerRef.current = null
   }
 
   async function onSubmit(values: z.infer<typeof CreateBoardValidation>) {
@@ -278,15 +303,26 @@ export const BoardForm = ({
           {pending ? "Submitting..." : type}
         </Button>
         {
-          type === "Update" && <Button
-          className="w-full my-2"
-          type="button"
-          onClick={askAI}
-          disabled={pending}
-          variant="outline"
-        >
-          Ask AI
-        </Button>
+          type === "Update" && isStreaming
+          ?
+            <Button
+              className="w-full my-2"
+              type="button"
+              onClick={handleStop}
+              variant="outline"
+            >
+              <Pause />
+            </Button>
+          : 
+            <Button
+              className="w-full my-2"
+              type="button"
+              onClick={askAI}
+              disabled={pending}
+              variant="outline"
+            >
+              {pending ? "Updatting..." : "Ask AI"}
+            </Button>
         }
         {
           type === "Update" && openAIResponse !== "" ?
