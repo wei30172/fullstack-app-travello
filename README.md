@@ -1,4 +1,4 @@
-## Intuitive Travel Planning Platform with Next.js
+## Travel Planning Platform with Next.js and OpenAI GPT-4
 
 Facilitated an easy-to-use drag and drop itinerary planner, allowing users to visually organize their travel schedule.
 
