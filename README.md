@@ -6,6 +6,8 @@ Facilitated an easy-to-use drag and drop itinerary planner, allowing users to vi
 
 2.Simple Duplication and Editing: Quickly copy and edit itineraries.
 
+3.AI-Driven Recommendations: Provides AI-generated travel suggestions for travel planning.
+
 
 ## Project Screenshots
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/26893b29-5d67-49ad-aee3-faeb25d782b2)
