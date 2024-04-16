@@ -19,6 +19,9 @@ Facilitated an easy-to-use drag and drop itinerary planner, allowing users to vi
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/31309e42-9816-477f-8e6b-31430f10cbd1)
 ![fullstack-app-travello](https://github.com/wei30172/fullstack-app-travello/assets/60259324/b333d6ad-5b71-43d7-9b24-2277162df4e2)
 
+## Test email & password
+testemail@testnet.co.us / test1234!
+
 ## Getting Started
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
