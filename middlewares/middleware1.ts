@@ -57,7 +57,7 @@ export function withAuthMiddleware(middleware: CustomMiddleware) {
 
     const isBoardPath = matchesPath(pathname, '/board/:path*')
     
-    // 如果存取受保護路徑且沒有 token，則重定向到登入
+    // If accessing a protected path without token, redirect to login
     const isProtectedPath = protectedPaths.some(path => matchesPath(pathname, path))
     if (!token && isProtectedPath) {
       const signInUrl = new URL('/api/auth/signin', request.url)
@@ -65,12 +65,12 @@ export function withAuthMiddleware(middleware: CustomMiddleware) {
       return NextResponse.redirect(signInUrl)
     }
 
-    // 如果有 token 且存取公開路徑，則重定向到 /boards
+    // If there is a token and the public path is accessed, redirect to /boards
     if (token && publicPaths.includes(pathname)) {
       return NextResponse.redirect(new URL('/boards', request.url))
     }
 
-    // 如果嘗試存取會員路徑 但角色不是 member，則重新導向訂閱頁面
+    // Attempt to access member path but role is not member, redirect to /billing
     // const isMemberPath = memberPaths.some(path => matchesPath(pathname, path))
     // if (token?.role !== "member" && isMemberPath) {
     //   return NextResponse.redirect(new URL('/billing', request.url));

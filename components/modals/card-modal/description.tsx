@@ -13,7 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { FormTextarea } from "@/components/form/form-textarea"
 import { FormSubmit } from "@/components/form/form-submit"
 import { Button } from "@/components/ui/button"
-import { MapPin } from "lucide-react"
+import { Map } from "lucide-react"
 
 interface DescriptionProps {
   data: CardWithList
@@ -51,7 +51,7 @@ export const Description = ({
   useEventListener("keydown", onKeyDown)
   useOnClickOutside(formRef, disableEditing)
 
-  const { execute, fieldErrors } = useAction(updateCard, {
+  const { execute: executeUpdateCard, fieldErrors } = useAction(updateCard, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["card", data._id],
@@ -69,16 +69,12 @@ export const Description = ({
     const description = formData.get("description") as string
     const boardId = params.boardId as string
 
-    execute({
-      id: data._id,
-      description,
-      boardId
-    })
+    executeUpdateCard({ id: data._id, description, boardId })
   }
 
   return (
     <div className="flex items-start gap-x-4 w-full">
-      <MapPin className="h-5 w-5 mt-0.5 text-gray-700" />
+      <Map className="h-5 w-5 mt-0.5 text-gray-700" />
       <div className="w-full">
         <p className="font-semibold text-gray-700 mb-2">
           Description

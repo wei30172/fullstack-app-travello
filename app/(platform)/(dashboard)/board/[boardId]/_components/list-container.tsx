@@ -60,7 +60,7 @@ export const ListContainer = ({
 
     if (!destination) return
 
-    // 如果移動到相同位置
+    // If moved to the same location
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
@@ -68,7 +68,7 @@ export const ListContainer = ({
       return
     }
 
-    // 移動整個 list
+    // Move the entire list
     if (type === "list") {
       const lists = reorder(
         orderedData,
@@ -82,14 +82,14 @@ export const ListContainer = ({
         _id: list._id,
         order: list.order
       }))
-      executeUpdateListOrder({ items: listsForUpdate, boardId })
+      executeUpdateListOrder({ lists: listsForUpdate, boardId })
     }
 
-    // 移動單個 card
+    // Move a single card
     if (type === "card") {
       let newOrderedData = [...orderedData]
 
-      // 列表來源及目標列表
+      // Source list and destination list
       const sourceList = newOrderedData.find(list => list._id === source.droppableId)
       const destList = newOrderedData.find(list => list._id === destination.droppableId)
 
@@ -97,17 +97,17 @@ export const ListContainer = ({
         return
       }
 
-      // 確認 cards 是否存在於列表來源
+      // Check if cards exist in source list
       if (!sourceList.cards) {
         sourceList.cards = []
       }
 
-      // 確認 cards 是否存在於目標列表
+      // Check if cards exist in destination list
       if (!destList.cards) {
         destList.cards = []
       }
 
-      // 卡片移動到同一 list
+      // Cards are moved to the same list
       if (source.droppableId === destination.droppableId) {
         const reorderedCards = reorder(
           sourceList.cards,
@@ -115,12 +115,12 @@ export const ListContainer = ({
           destination.index
         )
 
-        // 更新 card 順序
+        // Update card order
         reorderedCards.forEach((card, idx) => {
           card.order = idx
         })
 
-        // 更新來源列表中的卡片
+        // Update cards in source list
         sourceList.cards = reorderedCards
 
         setOrderedData(newOrderedData)
@@ -131,25 +131,25 @@ export const ListContainer = ({
           listId: sourceList._id
         }))
         
-        executeUpdateCardOrder({ items: cardsForUpdate, boardId })
+        executeUpdateCardOrder({ cards: cardsForUpdate, boardId })
 
-      // 卡片移動到另一list
+      // Card moved to another list
       } else {
-        // 從來源列表中移除 card
+        // Remove card from source list
         const [movedCard] = sourceList.cards.splice(source.index, 1)
 
-        // 將新的 listId 分配給移動的card
+        // Assign new listId to moved card
         movedCard.listId = destination.droppableId
 
-        // 將 card 新增至目標列表
+        // Add card to destination list
         destList.cards.splice(destination.index, 0, movedCard)
 
-        // 更新來源列表 card 順序
+        // Update source list card order
         sourceList.cards.forEach((card, idx) => {
           card.order = idx
         })
 
-        // 更新目標列表 card 順序
+        // Update destination list card order
         destList.cards.forEach((card, idx) => {
           card.order = idx
         })
@@ -160,16 +160,16 @@ export const ListContainer = ({
           ...sourceList.cards.map(card => ({
             _id: card._id,
             order: card.order,
-            listId: sourceList._id // 使用來源列表ID
+            listId: sourceList._id // Use source list id
           })),
           ...destList.cards.map(card => ({
             _id: card._id,
             order: card.order,
-            listId: destList._id, // 使用目標列表ID
+            listId: destList._id, // Use destination list id
           })),
         ];
       
-        executeUpdateCardOrder({ items: updatedCards, boardId })
+        executeUpdateCardOrder({ cards: updatedCards, boardId })
       }
     }
   }

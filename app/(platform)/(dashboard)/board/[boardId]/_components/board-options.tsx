@@ -34,7 +34,14 @@ export const BoardOptions = ({ boardData }: BoardOptionsProps) => {
   }
 
   return (
-    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+    <Popover open={isPopoverOpen} onOpenChange={
+      // Only changes state when open, closing is controlled by the close button
+      (open) => {
+        if (open) {
+          setIsPopoverOpen(true)
+        }
+      }
+    }>
       <PopoverTrigger asChild>
         <Button
           className="h-auto w-auto p-2"
@@ -50,7 +57,7 @@ export const BoardOptions = ({ boardData }: BoardOptionsProps) => {
         side="bottom" 
         align="start"
       >
-        <div className="text-sm font-medium text-center text-teal-900 pb-4">
+        <div className="text-sm font-medium text-center text-teal-900 pb-2">
           Manage Trip
         </div>
         

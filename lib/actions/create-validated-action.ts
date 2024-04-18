@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-// 錯誤類型，用於表單欄位的錯誤訊息
+// Error type, used for error messages in form fields
 export type FieldErrors<T> = {
   [K in keyof T]?: string[]
 }
@@ -16,14 +16,12 @@ export type FieldErrors<T> = {
 //   email?: string[]
 // }
 
-// Action 執行的狀態，包含可能的欄位錯誤、錯誤訊息和返回的數據
 export type ActionState<TInput, TOutput> = {
   fieldErrors?: FieldErrors<TInput>
   error?: string | null
   data?: TOutput
 }
 
-// 創建經過驗證的 Action
 export const createValidatedAction = <TInput, TOutput>(
   validation: z.Schema<TInput>,
   handler: (validatedData: TInput) => Promise<ActionState<TInput, TOutput>>

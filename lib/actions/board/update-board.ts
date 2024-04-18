@@ -24,9 +24,9 @@ const updateBoardhandler = async (data: UpdateBoardInput): Promise<UpdateBoardRe
     await connectDB()
 
     board = await Board.findByIdAndUpdate(
-      id, // 查詢條件
-      { $set: { title, location, startDate, endDate, imageUrl } }, // 只更新提供的內容  
-      { new: true, omitUndefined: true } // 返回更新後的文檔，只更新提供的內容
+      id,
+      { $set: { title, location, startDate, endDate, imageUrl } }, // Only update provided content
+      { new: true, omitUndefined: true } // Return updated document, updating only the provided content
     )
     // console.log({id, board})
 

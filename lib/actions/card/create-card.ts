@@ -14,7 +14,7 @@ import { CreateCardValidation } from "@/lib/validations/card"
 type CreateCardInput = z.infer<typeof CreateCardValidation>
 type CreateCardReturn = ActionState<CreateCardInput, ICard>
 
-const createCardHandler = async (data: CreateCardInput): Promise<CreateCardReturn> => {
+export const createCardHandler = async (data: CreateCardInput): Promise<CreateCardReturn> => {
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
@@ -30,11 +30,10 @@ const createCardHandler = async (data: CreateCardInput): Promise<CreateCardRetur
     if (!list) {
       return { error: "List not found" }
     }
-
-    // 取得最後一個 Card 的順序
+    
     const lastCard = await Card.findOne({ listId })
-      .sort({ order: -1 }) // -1 表示降序
-      .select({ order: 1 }) // 只選取 order 字段
+      .sort({ order: -1 }) // Descending order
+      .select({ order: 1 }) // Select the order field
 
     const newOrder = lastCard ? lastCard.order + 1 : 1
 
@@ -44,8 +43,8 @@ const createCardHandler = async (data: CreateCardInput): Promise<CreateCardRetur
     await card.save()
 
     await List.findByIdAndUpdate(
-      listId, // 查詢條件
-      { $push: { cards: card._id } // 更新內容
+      listId,
+      { $push: { cards: card._id }
     })
 
   } catch (error) {

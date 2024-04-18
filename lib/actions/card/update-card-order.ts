@@ -17,40 +17,42 @@ const updateCardOrderHandler = async (data: UpdateCardOrderInput): Promise<Updat
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
-  const { items, boardId, } = data
+  const { cards, boardId, } = data
 
   try {
     await connectDB()
 
-    const updateOperations = items.map(async (card) => {
+    const updateOperations = cards.map(async (card) => {
       const currentCard = await Card.findById(card._id)
       if (!currentCard) throw new Error('Card not found')
 
       const sourceListId = currentCard.listId
-      const targetListId = card.listId
+      const destListId = card.listId
 
-      if (sourceListId.toString() !== targetListId.toString()) {
-        // 從原始列表中移除卡片ID
+      if (sourceListId.toString() !== destListId.toString()) {
+        // Remove card ID from source list
         await List.updateOne(
           { _id: sourceListId },
           { $pull: { cards: card._id } }
         );
 
-        // 將卡片ID新增到新列表
+        // Add card ID to destination list
         await List.updateOne(
-          { _id: targetListId },
+          { _id: destListId },
           { $push: { cards: card._id } }
         );
       }
 
-      // 更新卡片的 order 和 listId
+      // Update the card's order and listId
       return Card.updateOne(
         { _id: card._id },
         { $set: { order: card.order, listId: card.listId } }
       )
     })
 
-    // 等待所有操作完成
+    // Executes multiple promises in parallel,
+    // returning a single promise that resolves when all of the input promises have resolved,
+    // or rejects if any input promise rejects.
     await Promise.all(updateOperations)
 
   } catch (error) {

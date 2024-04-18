@@ -10,7 +10,7 @@ import { useAction } from "@/hooks/use-validated-action"
 import { useToast } from "@/components/ui/use-toast"
 import { Skeleton } from "@/components/ui/skeleton"
 import { FormInput } from "@/components/form/form-input"
-import { Map } from "lucide-react"
+import { MapPin } from "lucide-react"
 
 interface HeaderProps {
   data: CardWithList
@@ -23,7 +23,7 @@ export const Header = ({
   const queryClient = useQueryClient()
   const params = useParams()
 
-  const { execute } = useAction(updateCard, {
+  const { execute: executeUpdateCard } = useAction(updateCard, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["card", data._id]
@@ -53,16 +53,12 @@ export const Header = ({
       return
     }
 
-    execute({
-      title,
-      boardId,
-      id: data._id
-    })
+    executeUpdateCard({ title, boardId, id: data._id })
   }
 
   return (
     <div className="flex items-start gap-x-4 mb-6 w-full">
-      <Map className="h-5 w-5 mt-2 text-gray-700" />
+      <MapPin className="h-5 w-5 mt-2 text-gray-700" />
       <div className="w-full">
         <form action={onSubmit}>
           <FormInput

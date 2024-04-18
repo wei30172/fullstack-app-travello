@@ -26,14 +26,13 @@ const copyCardHandler = async (data: CopyCardInput): Promise<CopyCardReturn> => 
     
     const cardToCopy = await Card.findById(id)
     if (!cardToCopy) { return { error: "Card not found" } }
-
+    
     const lastCard = await Card.findOne({ listId: cardToCopy.listId })
-      .sort({ order: -1 }) // -1 表示降序
-      .select({ order: 1 }) // 只選取 order 字段
+      .sort({ order: -1 }) // Descending order
+      .select({ order: 1 }) // Select the order field
 
     const newOrder = lastCard ? lastCard.order + 1 : 1
 
-     // 建立新卡片
     card = new Card({
       title: `${cardToCopy.title} - Copy`,
       description: cardToCopy.description,
@@ -44,8 +43,8 @@ const copyCardHandler = async (data: CopyCardInput): Promise<CopyCardReturn> => 
     await card.save()
 
     await List.findByIdAndUpdate(
-      card.listId, // 查詢條件
-      { $push: { cards: card._id } // 更新內容
+      card.listId,
+      { $push: { cards: card._id }
     })
 
   } catch (error) {

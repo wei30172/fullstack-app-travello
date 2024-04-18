@@ -28,19 +28,19 @@ const deleteBoardhandler = async (data: DeleteBoardInput): Promise<DeleteBoardRe
   try {
     await connectDB()
 
-    // 查詢屬於該 Board 的所有 List 的 ID
+    // Find the IDs of all Lists belonging to this Board
     const lists = await List.find({ boardId }).select('_id')
 
-    // 從查詢結果中提取所有 List ID
+    // Extract all List IDs from results
     const listIds = lists.map(list => list._id)
     
-    // 使用這些 List ID 刪除所有相關的 Card
+    // Delete all related Cards using these List IDs
     await Card.deleteMany({ listId: { $in: listIds } })
 
-    // 刪除與該Board相關的所有 List
+    // Delete all Lists related to this Board
     await List.deleteMany({ boardId })
 
-    // 刪除Board本身
+    // Delete the Board itself
     await Board.findByIdAndDelete(boardId)
 
   } catch (error) {

@@ -5,7 +5,8 @@ export const CreateListValidation = z.object({
     .min(1, "Title is required")
     .min(3, "Title must be 3+ characters")
     .max(100, "Title must be less than 100 characters"),
-  boardId: z.string()
+  boardId: z.string(),
+  cardTitles: z.optional(z.array(z.string()))
 })
 
 export const DeleteListValidation = z.object({
@@ -23,7 +24,7 @@ export const UpdateListValidation = z.object({
 })
 
 export const UpdateListOrderValidation = z.object({
-  items: z.array(
+  lists: z.array(
     z.object({
       _id: z.string(),
       order: z.number()

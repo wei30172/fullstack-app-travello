@@ -24,9 +24,9 @@ const updateListHandler = async (data: UpdateListInput): Promise<UpdateListRetur
     await connectDB()
 
     list = await List.findOneAndUpdate(
-      { _id: id, boardId: boardId }, // 查詢條件
-      { title }, // 更新內容
-      { new: true } // 返回更新後的文檔
+      { _id: id, boardId },
+      { title },
+      { new: true } // Return updated document
     )
 
   } catch (error) {

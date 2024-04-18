@@ -32,7 +32,7 @@ export const UpdateCardValidation = z.object({
 })
 
 export const UpdateCardOrderValidation = z.object({
-  items: z.array(
+  cards: z.array(
     z.object({
       _id: z.string(),
       order: z.number(),

@@ -25,13 +25,13 @@
 //     event: NextFetchEvent,
 //     response: NextResponse
 //   ) => {
-//     // 處理 i18n
+//     // Handling i18n
 //     const pathname = request.nextUrl.pathname
 //     const pathnameIsMissingLocale = i18n.locales.every(
 //       locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
 //     )
 
-//     // 如果沒有 locale 設定則重定向
+//     // Redirect if no locale is set
 //     if (pathnameIsMissingLocale) {
 //       const locale = getLocale(request)
 //       if (locale) {

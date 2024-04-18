@@ -11,13 +11,13 @@ export const getLists = async (boardId: string): Promise<Result<ListWithCards[]>
   try {
     await connectDB()
 
-    let lists = await List.find({ boardId: boardId })
+    let lists = await List.find({ boardId })
     .populate({
       path: 'cards',
       model: Card,
-      options: { sort: { order: 'asc' } } // 按 'order' 升序排列 cards
+      options: { sort: { order: 'asc' } } // Sort by 'order' in ascending order
     })
-    .sort({ order: 'asc' }) // 按 'order' 升序排列 lists
+    .sort({ order: 'asc' }) // Sort by 'order' in ascending order
     
     lists = lists.map(list => {
       let listObject = list.toObject()

@@ -25,7 +25,7 @@ const updateUserProfileHandler = async (data: UpdateUserProfileInput): Promise<U
     user = await User.findByIdAndUpdate(
       session?.user?._id,
       { name },
-      { new: true }
+      { new: true } // Return updated document
     ).select("-password")
 
     if (!user) {return { error: "User not found" }}

@@ -20,6 +20,6 @@ export const signInWithCredentials = async (data: SignInWithCredentialsInput) =>
   const passwordIsValid = await bcrypt.compare(password, user.password)
   if (!passwordIsValid) { throw new Error("Invalid password") }
 
-  user.password = "" // 移除密碼
+  user.password = "" //remove password
   return { ...user._doc, _id: user._id.toString() }
 }

@@ -40,7 +40,7 @@ export const ListHeader = ({
     setIsEditing(false)
   }
 
-  const { execute } = useAction(updateList, {
+  const { execute: executeUpdateList } = useAction(updateList, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -61,11 +61,7 @@ export const ListHeader = ({
       return disableEditing()
     }
 
-    execute({
-      title,
-      id,
-      boardId,
-    })
+    executeUpdateList({ title, id, boardId })
   }
 
   const onBlur = () => {

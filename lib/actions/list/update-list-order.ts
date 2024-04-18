@@ -16,19 +16,21 @@ const updateListOrderHandler = async (data: UpdateListOrderInput): Promise<Updat
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
-  const { items, boardId } = data
+  const { lists, boardId } = data
 
   try {
     await connectDB()
 
-    const updateOperations = items.map(list => 
+    const updateOperations = lists.map(list => 
       List.updateOne(
-        { _id: list._id }, // 查詢條件
-        { $set: { order: list.order } } // 更新内容
+        { _id: list._id },
+        { $set: { order: list.order } }
       )
     )
   
-    // 等待所有操作完成
+    // Executes multiple promises in parallel,
+    // returning a single promise that resolves when all of the input promises have resolved,
+    // or rejects if any input promise rejects.
     await Promise.all(updateOperations)
   
   } catch (error) {

@@ -81,6 +81,17 @@ body,
   }
 }
 
+/* ====== ANIMATION ====== */
+.streaming-animation p {
+  animation: blink-animation 3s infinite both;
+}
+
+@keyframes blink-animation {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 /* ====== POPOVER-CONTENT STYLES ====== */
 .centered-popover {
   position: fixed !important;

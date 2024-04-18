@@ -26,7 +26,7 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
   try {
     await connectDB()
 
-    const listToCopy = await List.findOne({ _id: id, boardId: boardId })
+    const listToCopy = await List.findOne({ _id: id, boardId })
       .populate({
         path: 'cards',
         model: Card
@@ -35,21 +35,20 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
     if (!listToCopy) {
       return { error: "List not found" }
     }
-  
-    const lastList = await List.findOne({ boardId: boardId })
-      .sort({ order: -1 }) // -1 表示降序
-      .select({ order: 1 }) // 只選取 order 字段
+    
+    const lastList = await List.findOne({ boardId })
+      .sort({ order: -1 }) // Descending order
+      .select({ order: 1 }) // Select the order field
   
     const newOrder = lastList ? lastList.order + 1 : 1
   
-    // 建立新列表
     const newList = new List({
       title: `${listToCopy.title} - Copy`,
       boardId: listToCopy.boardId,
       order: newOrder
     })
 
-    // 複製卡片
+    // Copy card
     if (listToCopy.cards && listToCopy.cards.length > 0) {
       const copiedCardsData = listToCopy.cards.map((card: ICard) => ({
         title: card.title,
@@ -60,15 +59,14 @@ const copyListHandler = async (data: CopyListInput): Promise<CopyListReturn> => 
   
       const copiedCards = await Card.insertMany(copiedCardsData)
 
-      // 更新新清單的 cards 欄位為新建立的卡片 ID
       newList.cards = copiedCards.map(card => card._id)
     }
 
     list = await newList.save()
 
     await Board.findByIdAndUpdate(
-      boardId, // 查詢條件
-      { $push: { lists: newList._id } // 更新內容
+      boardId,
+      { $push: { lists: newList._id }
     })
   } catch (error) {
     return { error: "Failed to copy" }

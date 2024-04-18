@@ -8,7 +8,10 @@ import { getUserSession } from "@/lib/actions/auth/get-user-session"
 import { ActionState, createValidatedAction } from "@/lib/actions/create-validated-action"
 import Board from "@/lib/database/models/board.model"
 import List from "@/lib/database/models/list.model"
+import { IList } from "@/lib/database/models/types"
 import { CreateListValidation } from "@/lib/validations/list"
+import { createCardHandler } from "@/lib/actions/card/create-card"
+import { deleteCardHandler } from "@/lib/actions/card/delete-card"
 
 type CreateListInput = z.infer<typeof CreateListValidation>
 type CreateListReturn = ActionState<CreateListInput, { title: string }>
@@ -17,9 +20,9 @@ export const createListHandler = async (data: CreateListInput): Promise<CreateLi
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
-  const { title, boardId } = data
+  const { title, boardId, cardTitles } = data
 
-  let list
+  let list: IList
 
   try {
     await connectDB()
@@ -30,22 +33,46 @@ export const createListHandler = async (data: CreateListInput): Promise<CreateLi
       return { error: "Trip not found" }
     }
 
-    // 取得最後一個 List 的順序
-    const lastList = await List.findOne({ boardId: boardId })
-      .sort({ order: -1 }) // -1 表示降序
-      .select({ order: 1 }) // 只選取 order 字段
+    const lastList = await List.findOne({ boardId })
+      .sort({ order: -1 }) // Descending order
+      .select({ order: 1 }) // Select the order field
     
     const newOrder = lastList ? lastList.order + 1 : 0
 
-    list = new List({ title, boardId: boardId, order: newOrder })
+    list = new List({ title, order: newOrder, boardId })
     // console.log({list})
 
     await list.save()
 
     await Board.findByIdAndUpdate(
-      boardId, // 查詢條件
-      { $push: { lists: list._id } // 更新內容
+      boardId,
+      { $push: { lists: list._id }
     })
+
+    if (cardTitles && cardTitles?.length > 0) {
+      const cardPromises = cardTitles.map(title => createCardHandler({
+        title,
+        boardId,
+        listId: list._id.toString()
+      }))
+
+      // Executes multiple promises in parallel,
+      // returning a single promise that resolves after all of the input promises have either resolved or rejected,
+      // with an array of objects describing the outcome of each promise.
+      const cardResults = await Promise.allSettled(cardPromises)
+      const failedCards = cardResults.filter(result => result.status === 'rejected')
+      
+      if (failedCards.length > 0) {
+        const succeededCards = cardResults.filter(result => result.status === 'fulfilled') as PromiseFulfilledResult<any>[]
+        const deletePromises = succeededCards.map(card => deleteCardHandler({
+          id: card.value.data._id,
+          boardId
+        }))
+
+        await Promise.allSettled(deletePromises)
+        throw new Error('Failed to fully create list and cards')
+      }
+    }
 
   } catch (error) {
     return { error: "Failed to create" }

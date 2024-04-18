@@ -34,7 +34,7 @@ export const ListForm = () => {
     setIsEditing(false)
   }
 
-  const { execute, fieldErrors } = useAction(createList, {
+  const { execute: executeCreateList, fieldErrors } = useAction(createList, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -59,10 +59,7 @@ export const ListForm = () => {
     const title = formData.get("title") as string
     const boardId = formData.get("boardId") as string
 
-    execute({
-      title,
-      boardId
-    })
+    executeCreateList({ title, boardId })
   }
 
   if (isEditing) {

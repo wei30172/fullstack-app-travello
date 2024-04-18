@@ -25,9 +25,9 @@ const updateCardHandler = async (data: UpdateCardInput): Promise<UpdateCardRetur
     await connectDB()
 
     card = await Card.findByIdAndUpdate(
-      { _id: id }, // 查詢條件
-      updateData, // 更新內容
-      { new: true } // 返回更新後的文檔
+      { _id: id },
+      updateData,
+      { new: true } // Return updated document
     )
 
   } catch (error) {

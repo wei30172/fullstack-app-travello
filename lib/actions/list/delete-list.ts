@@ -31,13 +31,13 @@ const deleteListHandler = async (data: DeleteListInput): Promise<DeleteListRetur
       return { error: "List not found" }
     }
 
-    // 刪除與該 List 相關的所有 Card
+    // Delete all Cards related to this List
     await Card.deleteMany({ listId: id })
 
-    // 刪除 List 本身
+    // Delete the List itself
     await List.findByIdAndDelete(id)
 
-    // 更新 Board 數據，移除該 List 的引用
+    // Remove the Board's reference to the List
     await Board.findByIdAndUpdate(boardId, {
       $pull: { lists: id }
     })

@@ -13,7 +13,7 @@ import { DeleteCardValidation } from "@/lib/validations/card"
 type DeleteCardInput = z.infer<typeof DeleteCardValidation>
 type DeleteCardReturn = ActionState<DeleteCardInput, { title: string }>
 
-const deleteCardHandler = async (data: DeleteCardInput): Promise<DeleteCardReturn> => {
+export const deleteCardHandler = async (data: DeleteCardInput): Promise<DeleteCardReturn> => {
   const { session } = await getUserSession()
   if (!session) { return { error: "Unauthorized" } }
 
@@ -30,10 +30,10 @@ const deleteCardHandler = async (data: DeleteCardInput): Promise<DeleteCardRetur
       return { error: "Card not found" }
     }
   
-    // 刪除 Card 本身
+    // Delete the Card itself
     await Card.findByIdAndDelete(id)
 
-    // 更新 List 數據，移除該 Card 的引用
+    // Remove the List's reference to the Card
     await List.findByIdAndUpdate(card.listId, {
       $pull: { cards: id }
     })
