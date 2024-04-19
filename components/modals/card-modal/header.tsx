@@ -9,7 +9,7 @@ import { useAction } from "@/hooks/use-validated-action"
 
 import { useToast } from "@/components/ui/use-toast"
 import { Skeleton } from "@/components/ui/skeleton"
-import { FormInput } from "@/components/form/form-input"
+import { FormInput } from "@/components/form-items/form-input"
 import { MapPin } from "lucide-react"
 
 interface HeaderProps {

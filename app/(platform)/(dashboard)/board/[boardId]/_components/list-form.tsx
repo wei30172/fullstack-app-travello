@@ -8,8 +8,8 @@ import { createList } from "@/lib/actions/list/create-list"
 
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { FormInput } from "@/components/form/form-input"
-import { FormSubmit } from "@/components/form/form-submit"
+import { FormInput } from "@/components/form-items/form-input"
+import { FormSubmit } from "@/components/form-items/form-submit"
 import { ListWrapper } from "./list-wrapper"
 import { Plus, X } from "lucide-react"
 

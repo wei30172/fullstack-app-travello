@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/components/ui/use-toast"
-import { FormSubmit } from "@/components/form/form-submit"
+import { FormSubmit } from "@/components/form-items/form-submit"
 import { MoreHorizontal, X, Plus, Copy, Trash2 } from "lucide-react"
 
 interface ListOptionsProps {

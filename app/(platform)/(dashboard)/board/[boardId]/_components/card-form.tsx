@@ -13,8 +13,8 @@ import { createCard } from "@/lib/actions/card/create-card"
 
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { FormSubmit } from "@/components/form/form-submit"
-import { FormTextarea } from "@/components/form/form-textarea"
+import { FormSubmit } from "@/components/form-items/form-submit"
+import { FormTextarea } from "@/components/form-items/form-textarea"
 import { Plus, X } from "lucide-react"
 
 interface CardFormProps {

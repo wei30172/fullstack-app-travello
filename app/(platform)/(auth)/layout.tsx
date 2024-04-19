@@ -1,8 +1,8 @@
-export default function AuthLayout({
+const AuthLayout = ({
   children
 }: {
   children: React.ReactNode
-}) {
+}) => {
   return (
     <main className="h-full flex items-center justify-center">
       <div className="border border-slate-300 p-8 rounded-md">
@@ -11,3 +11,5 @@ export default function AuthLayout({
     </main>
   )
 }
+
+export default AuthLayout

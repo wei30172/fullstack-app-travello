@@ -8,7 +8,7 @@ import { ListWithCards } from "@/lib/database/models/types"
 import { updateList } from "@/lib/actions/list/update-list"
 
 import { useToast } from "@/components/ui/use-toast"
-import { FormInput } from "@/components/form/form-input"
+import { FormInput } from "@/components/form-items/form-input"
 import { ListOptions } from "./list-options"
 
 interface ListHeaderProps {

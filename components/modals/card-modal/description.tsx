@@ -10,8 +10,8 @@ import { updateCard } from "@/lib/actions/card/update-card"
 
 import { useToast } from "@/components/ui/use-toast"
 import { Skeleton } from "@/components/ui/skeleton"
-import { FormTextarea } from "@/components/form/form-textarea"
-import { FormSubmit } from "@/components/form/form-submit"
+import { FormTextarea } from "@/components/form-items/form-textarea"
+import { FormSubmit } from "@/components/form-items/form-submit"
 import { Button } from "@/components/ui/button"
 import { Map } from "lucide-react"
 

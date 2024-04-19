@@ -7,7 +7,7 @@ import { updateBoard } from "@/lib/actions/board/update-board"
 
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { FormInput } from "@/components/form/form-input"
+import { FormInput } from "@/components/form-items/form-input"
 
 interface BoardTitleFormProps {
   boardData: IBoard

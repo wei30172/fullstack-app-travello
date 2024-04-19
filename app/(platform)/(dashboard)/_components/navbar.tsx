@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/shared/logo"
 import { ModeToggle } from "@/components/shared/mode-toggle"
-import { FormPopover } from "@/components/form/form-popover"
+import { FormPopover } from "@/components/form-items/form-popover"
 import { UserButton } from "./user-button"
 import { MobileSidebar } from "./mobile-sidebar"
 import { Plus } from "lucide-react"
