@@ -35,7 +35,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
 
   const formRef = useRef<ElementRef<"form">>(null)
 
-  const { execute, fieldErrors } = useAction(createCard, {
+  const { execute: executeCreateCard, fieldErrors } = useAction(createCard, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -67,7 +67,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
     const listId = formData.get("listId") as string
     const boardId = params.boardId as string
 
-    execute({ title, listId, boardId })
+    executeCreateCard({ title, listId, boardId })
   }
 
   if (isEditing) {

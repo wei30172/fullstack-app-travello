@@ -60,7 +60,10 @@ export const UpdateForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="your username" {...field} />
+                  <Input
+                    placeholder="your username"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

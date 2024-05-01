@@ -29,7 +29,7 @@ export const ChangePasswordForm = () => {
   const { toast } = useToast()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
-  const { execute } = useAction(changeUserPassword, {
+  const { execute: executeChangeUserPassword } = useAction(changeUserPassword, {
     onSuccess: () => {
       toast({
         status: "success",
@@ -58,7 +58,7 @@ export const ChangePasswordForm = () => {
 
   async function onSubmit(values: z.infer<typeof ChangePasswordValidation>) {
     // console.log(values)
-    execute(values)
+    executeChangeUserPassword(values)
   }
 
   return (

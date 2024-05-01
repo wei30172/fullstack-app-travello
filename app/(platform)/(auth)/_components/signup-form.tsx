@@ -27,7 +27,7 @@ export const SignUpForm = () => {
   const { pending } = useFormStatus()
   const { toast } = useToast()
 
-  const { execute } = useAction(signUpWithCredentials, {
+  const { execute: executeSignUpWithCredentials } = useAction(signUpWithCredentials, {
     onSuccess: (data) => {
       toast({
         status: "success",
@@ -50,7 +50,7 @@ export const SignUpForm = () => {
 
   async function onSubmit(values: z.infer<typeof SignUpValidation>) {
     // console.log(values)
-    execute(values)
+    executeSignUpWithCredentials(values)
   }
 
   return (
@@ -64,7 +64,10 @@ export const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="your username" {...field} />
+                  <Input
+                    placeholder="your username"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -77,7 +80,10 @@ export const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="mail@example.com" {...field} />
+                  <Input
+                    placeholder="mail@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

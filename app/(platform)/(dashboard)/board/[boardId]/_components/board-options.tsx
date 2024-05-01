@@ -25,12 +25,12 @@ export const BoardOptions = ({ boardData }: BoardOptionsProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const { toast } = useToast()
   
-  const { execute, isLoading: isLoadingDelete } = useAction(deleteBoard, {
+  const { execute: executeDeleteBoard, isLoading: isLoadingDelete } = useAction(deleteBoard, {
     onError: (error) => {toast({ status: "error", description: error })}
   })
 
   const handleDeleteBoard = () => {
-    execute({ boardId: boardData._id })
+    executeDeleteBoard({ boardId: boardData._id })
   }
 
   return (
