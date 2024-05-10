@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import AIResponse from "./AI-response"
+import AIResponse from "./ai-response"
 
 interface BoardFormProps {
   type: "Create" | "Update",
