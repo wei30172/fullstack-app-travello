@@ -1,9 +1,9 @@
-import AuthProvider from '@/providers/auth-provider'
-import { QueryProvider } from '@/providers/query-provider'
-import { ModalProvider } from '@/providers/modal-provider'
-import { Toaster } from '@/components/ui/toaster'
+import AuthProvider from "@/providers/auth-provider"
+import { QueryProvider } from "@/providers/query-provider"
+import { ModalProvider } from "@/providers/modal-provider"
+import { Toaster } from "@/components/ui/toaster"
 
-const PlatformLayout = ({
+const RootLayout = ({
   children
 }: {
   children: React.ReactNode
@@ -19,4 +19,4 @@ const PlatformLayout = ({
   )
 }
 
-export default PlatformLayout
+export default RootLayout
