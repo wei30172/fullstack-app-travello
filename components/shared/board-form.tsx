@@ -84,7 +84,7 @@ export const BoardForm = ({
     onSuccess: (data) => {
       toast({
         status: "success",
-        title: `Itinerary "${data.title}" created`,
+        title: `Itinerary "${data.title}" created`
       })
       router.refresh()
       onClose()

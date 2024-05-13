@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 
-import connectDB from '@/lib/database/mongodb'
-import { CardWithList } from '@/lib/database/models/types'
-import Card from '@/lib/database/models/card.model'
-import List from '@/lib/database/models/list.model'
-import Board from '@/lib/database/models/board.model'
+import connectDB from "@/lib/database/mongodb"
+import { CardWithList } from "@/lib/database/models/types"
+import Card from "@/lib/database/models/card.model"
+import List from "@/lib/database/models/list.model"
+import Board from "@/lib/database/models/board.model"
 
 export async function GET(
   req: Request,

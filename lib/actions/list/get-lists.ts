@@ -1,8 +1,8 @@
 "use server"
 
-import connectDB from '@/lib/database/mongodb'
-import List from '@/lib/database/models/list.model'
-import Card from '@/lib/database/models/card.model'
+import connectDB from "@/lib/database/mongodb"
+import List from "@/lib/database/models/list.model"
+import Card from "@/lib/database/models/card.model"
 import { ICard, ListWithCards } from "@/lib/database/models/types"
 
 type Result<T> = { data: T } | { error: string }

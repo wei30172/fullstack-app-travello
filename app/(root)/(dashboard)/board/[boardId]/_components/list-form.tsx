@@ -38,7 +38,7 @@ export const ListForm = () => {
     onSuccess: (data) => {
       toast({
         status: "success",
-        title: `Itinerary "${data.title}" created`,
+        title: `Itinerary "${data.title}" created`
       })
       disableEditing()
       router.refresh()

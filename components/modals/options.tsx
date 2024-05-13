@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { CardWithList } from '@/lib/database/models/types'
+import { CardWithList } from "@/lib/database/models/types"
 import { copyCard } from "@/lib/actions/card/copy-card"
 import { deleteCard } from "@/lib/actions/card/delete-card"
 import { useAction } from "@/hooks/use-validated-action"
